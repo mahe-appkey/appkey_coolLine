@@ -29,10 +29,7 @@ func _process(delta):
 	# the Y coordinate must be inverted,
     # because in 2D the Y axis is pointing down
 #	var dir = Vector2(cos(angle), -sin(angle))
-	print("angle: ",angle)
-	print("target: ",targetAngle)
 	if abs(angle) < abs(targetAngle):
-		print("rotate====>")
 		set_rotation_degrees(angle-speed)
 #	if !can_grab and Input.is_key_pressed(KEY_Z):
 #    	# Move
