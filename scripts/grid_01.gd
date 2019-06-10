@@ -1,4 +1,4 @@
-extends GridContainer
+extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,18 +16,22 @@ func _ready():
 		tileArray.append([])
 		tileArray[i].resize(row)
 		for j in range (row):
-			var tileGrid =preload("res://scene/Sprite.tscn").instance()
+			var tileGrid =preload("res://scene/tileDisk.tscn").instance()
 			tileGrid.position =Vector2((j*tileWidth)+anchoredWidth, (i*tileHeight)+anchoredHeight)
 			tileArray[i][j]=tileGrid
 			self.add_child(tileArray[i][j])
-	for k in range (col):
-		diskArray.append([])
-		diskArray[k].resize(row)
-		for l in range (row):
-			var diskGrid =preload("res://scene/disk.tscn").instance()
-			diskGrid.position =Vector2((l*tileWidth)+anchoredWidth+32, (k*tileHeight)+anchoredHeight+32)
-			diskArray[k][l]=diskGrid
-			self.add_child(diskArray[k][l])
+#	for k in range (col):
+#		diskArray.append([])
+#		diskArray[k].resize(row)
+#		for l in range (row):
+#			var diskGrid =preload("res://scene/disk.tscn").instance()
+#			diskGrid.position =Vector2((l*tileWidth)+anchoredWidth+32, (k*tileHeight)+anchoredHeight+32)
+#			diskArray[k][l]=diskGrid
+#			self.add_child(diskArray[k][l])
+	
+	var diskGrid =preload("res://scene/disk.tscn").instance()
+	diskGrid.position =Vector2(50, 50)
+	self.add_child(diskGrid)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

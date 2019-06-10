@@ -17,6 +17,6 @@ scale = Vector2( 0.23, 0.23 )
 texture = ExtResource( 2 )
 offset = Vector2( -4.33499, -3.03706 )
 
-[node name="col_disk" type="CollisionShape2D" parent="."]
+[node name="disk_col" type="CollisionShape2D" parent="."]
 position = Vector2( -0.0191841, -1.02849 )
 shape = SubResource( 1 )

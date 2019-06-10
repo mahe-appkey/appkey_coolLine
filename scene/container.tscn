@@ -3,9 +3,5 @@
 [ext_resource path="res://scripts/grid_01.gd" type="Script" id=1]
 
 [node name="gridContainer" type="Node2D"]
-
-[node name="grid_01" type="GridContainer" parent="."]
-custom_constants/vseparation = 4
-custom_constants/hseparation = 4
-columns = 5
+z_as_relative = false
 script = ExtResource( 1 )
