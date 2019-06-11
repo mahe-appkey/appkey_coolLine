@@ -1,3 +1,4 @@
+```c++
 for 1 rotation:
 0 + 1 = 1
 1 + 1 = 2
@@ -18,6 +19,12 @@ for 3 rotation:
 1 + 3 = 4 => 0 => (1+3) - 4 = 0
 2 + 3 = 5 => 1 => (2+3) - 4 = 1
 3 + 3 = 6 => 2 => (3+3) - 4 = 2
+```
+```plantuml
+digraph Test {
+A -> B
+}
+```
 
 inventory system for drag n drop n snapping:
 https://github.com/RodZill4/godot_inventory
@@ -30,3 +37,8 @@ https://github.com/GDquest
 
 godot 3 tutorial list:
 https://www.reddit.com/r/godot/comments/an0iq5/godot_tutorials_list_of_video_and_written/
+
+for fixing the lagged issue on VSCode:
+https://github.com/Microsoft/vscode/issues/15211
+
+
