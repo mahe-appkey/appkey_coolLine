@@ -86,8 +86,8 @@ func _gui_input(event):
 			holdingItem = clickedSlot.disk
 			clickedSlot.pickDisk()
 			holdingItem.rect_global_position = Vector2(event.position.x, event.position.y)
-		else:
-			holdingItem = null
+#		else:
+#			holdingItem = null
 		pass
 			
 

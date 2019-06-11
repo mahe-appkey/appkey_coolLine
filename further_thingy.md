@@ -42,3 +42,9 @@ for fixing the lagged issue on VSCode:
 https://github.com/Microsoft/vscode/issues/15211
 
 
+(deadline 26 Juni 2019 full Android and IOS)
+### Estimation time on COOL LINE <MAX11> 
+- squares/tile: $4 \times 4 = 16 squares$
+- 10 rounds, each round has 4 shots/chances; total would be 40 shots (20 to 40 ???)
+- linkage or chaining limit is 11 times
+- 

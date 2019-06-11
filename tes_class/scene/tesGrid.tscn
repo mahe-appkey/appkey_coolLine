@@ -13,5 +13,8 @@ margin_right = 358.0
 margin_bottom = 380.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-columns = 5
+columns = 4
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
