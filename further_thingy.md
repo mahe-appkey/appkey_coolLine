@@ -42,9 +42,15 @@ for fixing the lagged issue on VSCode:
 https://github.com/Microsoft/vscode/issues/15211
 
 
-(deadline 26 Juni 2019 full Android and IOS)
-### Estimation time on COOL LINE <MAX11> 
+### Estimation time on COOL LINE <MAX11> (deadline 26 Juni 2019 full Android and IOS) 
 - squares/tile: $4 \times 4 = 16 squares$
 - 10 rounds, each round has 4 shots/chances; total would be 40 shots (20 to 40 ???)
 - linkage or chaining limit is 11 times
 - 
+
+### to do or experiment:
+- [ ] rotation using tween node in the sprite class, test if it can be added as child or parent, directly?
+- [ ] change the instance? from full script to prefabs?
+
+### questions?
+- [ ] if every new rounds, all board are turned back to brown, but keep the pieces/drives position and orientation, what about the randomize empty space? change or not?
