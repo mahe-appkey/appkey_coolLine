@@ -9,21 +9,31 @@ var angle_rot = 0
 var rot_amount = 45
 var rot_speed = 1
 var rot_time = 3
+var widnhei= ((OS.get_window_size().x)/4)-25
 
 func _init(diskName,diskTexture, diskSlot,diskType):
 	name = diskName
 	self.diskType = diskType
-	texture = diskTexture
+	texture = resize_img(diskTexture,widnhei)
 	self.diskSlot = diskSlot
 	
+func resize_img(img_texture,w):
+	var img = img_texture.get_data()
+	img.resize(w,w)
+	var new_tex = ImageTexture.new()
+	new_tex.create_from_image(img)
+	return new_tex
+	
 func _ready():
-	var disk_scale = get_parent().get_rect().size/(2*180)
-	self.scale = disk_scale
+#	var disk_scale = get_parent().get_rect().size/(2*180)
+#	self.scale = disk_scale
 	self.set_centered(true)
+	re_position()
+	self.set_rotation(deg2rad(0))
+#	print("sprite texture height: ", self.get_texture().get_height())
+func re_position():
 	self.position.x=get_parent().get_rect().size.x/2
 	self.position.y=get_parent().get_rect().size.y/2
-	self.set_rotation(deg2rad(0))
-	
 func rotate_disk():
 	var irot = 0.0
 	if abs(angle_rot) == 360:
@@ -43,15 +53,6 @@ func rotate_disk():
 #	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
 ##		print("mouse_click")
 #		self.rotate_disk()
-	
-func pickDisk():
-	picked = true
-	pass
-	
-func putDisk():
-	picked = false
-	pass
-	
 
 # Declare member variables here. Examples:
 # var a = 2

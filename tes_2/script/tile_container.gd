@@ -2,7 +2,14 @@ extends GridContainer
 
 var tile_arr = Array()
 var disk_arr = Array()
+var hold_disk = null
+var original_disk_position
+var can_grab
+var grabbed_offset = Vector2()
+var clicked_tile
 var ran_tile
+var empt_tile_index
+var temp_tile_index
 var num_column = 4
 var num_slot = (num_column*num_column)
 const tile_class = preload("res://tes_2/script/tile_class.gd")
@@ -32,13 +39,16 @@ const diskDictionary = {
 }
 
 func _init():
+	self.margin_top= (OS.get_window_size().y/2.5)
 	self.set_columns(num_column)
+	self.rect_position.x = 0#(OS.get_window_size().x/5)-(OS.get_window_size().x/5)
 #	self.position(Vector2(10,320))
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	ran_tile = random_arr(num_slot)
-	generate_tile()
+	empt_tile_index = ran_tile
 	generate_disk()
+	generate_tile()
 	add_disk_to_tile(ran_tile)
 	print("Empty Tile no. ",ran_tile)
 	pass
@@ -71,16 +81,47 @@ func random_arr(i):
 func _gui_input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
 #		print("mouse_click")
-		var clicked_tile
-		for tile in tile_arr:
-			var tile_mousePos = tile.get_local_mouse_position()
-			var tile_texture = tile.get_texture()
-			var isClicked = tile_mousePos.x >=0 && tile_mousePos.x <= tile_texture.get_width() && \
-			tile_mousePos.y >= 0 && tile_mousePos.y <= tile_texture.get_height()
-			if isClicked and (tile!=tile_arr[ran_tile]):
-				clicked_tile = tile
-				clicked_tile.get_child(0).visible = not clicked_tile.get_child(0).visible
-
+		for i in range(num_slot):
+			var tile = tile_arr[i]
+			if (tile!=tile_arr[empt_tile_index]):
+				var tile_mousePos = tile.get_local_mouse_position()
+				var disk_texture = tile.get_child(0).get_texture()
+				var isClicked = tile_mousePos.x >=0 && tile_mousePos.x <= disk_texture.get_width() && \
+				tile_mousePos.y >= 0 && tile_mousePos.y <= disk_texture.get_height()
+				if isClicked:
+					temp_tile_index = i
+					clicked_tile = tile
+					original_disk_position = tile.disk.global_position
+	#				clicked_tile.get_child(0).visible = not clicked_tile.get_child(0).visible
+					can_grab = event.pressed
+					grabbed_offset=clicked_tile.get_child(0).position - get_global_mouse_position()
+					clicked_tile.clear_tile()
+				
+	if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT and event.pressed:
+		for i in range(num_slot):
+			tile_arr[i].reset_tile()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+func _process(delta):
+	if Input.is_mouse_button_pressed(BUTTON_LEFT) and can_grab:
+#		clicked_tile.get_child(0).position = get_global_mouse_position() + grabbed_offset
+		if clicked_tile != null:
+			hold_disk = clicked_tile.disk
+			hold_disk.z_index = 99
+			hold_disk.global_position = get_global_mouse_position()
+	elif hold_disk!=null and clicked_tile != null:
+		var empt_tile_mousePos = tile_arr[empt_tile_index].get_local_mouse_position()
+		var epmt_tile_texture = tile_arr[empt_tile_index].get_texture()
+		var inEmptyTile = (empt_tile_mousePos.x >=0 && empt_tile_mousePos.x <= epmt_tile_texture.get_width() && \
+				empt_tile_mousePos.y >= 0 && empt_tile_mousePos.y <= epmt_tile_texture.get_height())
+		if inEmptyTile:
+			clicked_tile.removeDisk()
+			tile_arr[empt_tile_index].setDisk(hold_disk)
+			empt_tile_index = temp_tile_index
+		else: 
+			hold_disk.global_position = original_disk_position
+		hold_disk.z_index = 1
+		hold_disk = null
+		clicked_tile = null
+		
