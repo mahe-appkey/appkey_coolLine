@@ -9,10 +9,7 @@ var panel_y = OS.get_window_size().y
 func _init():
 	self.rect_size.x = panel_x
 	self.rect_size.y = panel_y
-	print("panel x: ",panel_x)
-	print("panel y: ",panel_y)
-	print("rect panel x: ",self.rect_size.x)
-	print("rect panel y: ",self.rect_size.y)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
