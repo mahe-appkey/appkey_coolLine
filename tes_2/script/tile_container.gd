@@ -1,5 +1,6 @@
 extends GridContainer
 
+signal rotate_disk_signal
 var tile_arr = Array()
 var disk_arr = Array()
 var hold_disk = null
@@ -115,6 +116,7 @@ func _process(delta):
 		var inEmptyTile = (empt_tile_mousePos.x >=0 && empt_tile_mousePos.x <= epmt_tile_texture.get_width() && \
 				empt_tile_mousePos.y >= 0 && empt_tile_mousePos.y <= epmt_tile_texture.get_height())
 		if inEmptyTile:
+			emit_signal("rotate_disk_signal",2)
 			print(clicked_tile.disk.trigger_dir)
 			clicked_tile.removeDisk()
 			tile_arr[empt_tile_index].setDisk(hold_disk)

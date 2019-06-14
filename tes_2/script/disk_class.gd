@@ -41,8 +41,9 @@ func _ready():
 	self.set_centered(true)
 	re_position()
 	self.set_rotation(deg2rad(rot_arr[random_arr(rot_arr.size())]))
-	cur_rot=rad2deg(self.get_rotation())
+	cur_rot=self.get_rotation_degrees()
 	update_value_rot()
+	$tile_container.connect("rotate_disk_signal",self,"rotate_disk")
 	
 func update_value_rot():
 	var delta_rot = abs(cur_rot - bef_rot)
