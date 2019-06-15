@@ -4,10 +4,14 @@ var slotIndex
 var disk = null
 var sprite_img_texture = preload("res://tes_2/img/board_desert.png")
 var sprite_img_texture_clear = preload("res://tes_2/img/board_oasis.png")
+var isGreened = false
 
 # width and height of texture for tile
 #var widnhei= ((OS.get_window_size().x)/4)-(OS.get_window_size().x/120)
 var widnhei
+
+func is_green():
+	return isGreened
 
 func resize_img(img_texture,w):
 	var img = img_texture.get_data()
@@ -19,10 +23,12 @@ func resize_img(img_texture,w):
 func clear_tile():
 	var sprite_img = resize_img(sprite_img_texture_clear,widnhei)
 	self.set_texture(sprite_img)
+	self.isGreened = true
 	
 func reset_tile():
 	var sprite_img = resize_img(sprite_img_texture,widnhei)
 	self.set_texture(sprite_img)
+	self.isGreened = false
 
 func _init(slotIndex):
 	self.slotIndex = slotIndex

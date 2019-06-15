@@ -1,6 +1,8 @@
 extends GridContainer
 
-signal rotate_disk_signal
+# signal
+
+# variable
 var tile_arr = Array()
 var disk_arr = Array()
 var hold_disk = null
@@ -38,7 +40,126 @@ const diskDictionary = {
 		"diskIcon":disk_texture[2]
 	}
 }
+var cur_chain_tile
+var cur_chain_dir
+var cur_chain_disk_val
+var chain_limit = 11
+var cur_chain_index
+var cur_chain_disk
+var board_border={
+	"no_up":{},
+	"no_down":{},
+	"no_left":{},
+	"no_right":{}
+}
+const block_time = 2
+var cur_block_time
+var prev_chain_disk_value
+var is_rotating :bool = false
 
+func init_chaining(start_tile):
+#	initialize needed information for chaining
+	var start_index
+	for i in range(tile_arr.size()):
+		if start_tile == tile_arr[i]:
+			start_index=i
+	cur_chain_index = start_index
+	cur_chain_tile = tile_arr[cur_chain_index]
+	cur_chain_disk = cur_chain_tile.disk
+	cur_chain_disk_val = cur_chain_disk.trigger_val
+	cur_chain_dir = cur_chain_disk.trigger_dir
+	prev_chain_disk_value=cur_chain_disk_val
+	start_chaining()
+	pass
+	
+func define_border():
+#	border definition
+	for i in range(num_column):
+		board_border["no_up"][i]=i
+	for i in range(num_column):
+		board_border["no_down"][i]=(num_slot-(i+1))
+	for i in range(num_column):
+		board_border["no_left"][i]=i*num_column
+	for i in range(num_column):
+		board_border["no_right"][i]=board_border["no_left"][i]+(num_column-1)
+	pass
+	
+func is_ok_next_dir():
+	if (cur_chain_dir == "up" and cur_chain_index in board_border["no_up"])\
+	or (cur_chain_dir == "down" and cur_chain_index in board_border["no_down"])\
+	or (cur_chain_dir == "left" and cur_chain_index in board_border["no_left"])\
+	or (cur_chain_dir == "right" and cur_chain_index in board_border["no_right"]):
+		print("check false")
+		return false
+	else:
+		print("check true")
+		return true
+	pass
+	
+func check_next():
+	if is_ok_next_dir():
+		update_cur_index()
+	else:
+		change_dir(cur_chain_dir)
+		print("change dir")
+		pass
+	pass
+
+func change_dir(dir):
+	if dir=="up":
+		dir = "left"
+	elif dir=="down":
+		dir = "right"
+	elif dir=="left":
+		dir = "down"
+	elif dir=="right":
+		dir = "up"
+	pass
+		
+func update_cur_index():
+	if is_ok_next_dir():
+	 	if cur_chain_dir=="up":
+	 		cur_chain_index -=num_column
+	 	elif cur_chain_dir== "right":
+	 		cur_chain_index +=1
+	 	elif cur_chain_dir== "left":
+	 		cur_chain_index -=1
+	 	elif cur_chain_dir== "down":
+	 		cur_chain_index+=num_column
+	pass
+
+func update_cur_tile():
+	if is_ok_next_dir():
+		cur_chain_tile = tile_arr[cur_chain_index]
+		cur_chain_disk = cur_chain_tile.disk
+		for i in range(cur_chain_disk.disk_dir_arr.size()):
+			if cur_chain_disk.disk_dir_arr[i] == cur_chain_dir:
+				cur_chain_disk_val = cur_chain_disk.disk_value[i]
+	pass
+	
+func chain_me():
+#	cur_chain_disk.rotate(prev_chain_disk_value)
+	cur_chain_tile.clear_tile()
+#	prev_chain_disk_value=cur_chain_disk_val
+	print("chain me")
+	
+func start_chaining():
+	var cur_chain_limit =chain_limit
+	
+	for i in range(chain_limit):
+		check_next()
+		update_cur_tile()
+		chain_me()
+#		var prev_chain_index = cur_chain_index
+##		update_cur_index()
+#		if(prev_chain_index != cur_chain_index) and cur_chain_limit > 0:
+#
+##			OS.delay_msec(500*prev_chain_disk_value)
+#			pass
+#		else:
+#			break
+#	pass
+	
 func _init():
 	self.margin_top= (OS.get_window_size().y/2.5)
 	self.margin_left= 10
@@ -54,7 +175,8 @@ func _ready():
 	generate_disk()
 	generate_tile()
 	add_disk_to_tile(ran_tile)
-	print("Empty Tile no. ",ran_tile)
+	define_border()
+#	print("Empty Tile no. ",ran_tile)
 	pass
 		
 func add_disk_to_tile(ran_num):
@@ -77,7 +199,7 @@ func generate_tile():
 		var tile_slot = tile_class.new(i)
 		tile_arr.append(tile_slot)
 		self.add_child(tile_slot)
-	print ("tile Size: ",tile_arr.size())
+#	print ("tile Size: ",tile_arr.size())
 	
 func random_arr(i):
 	randomize()
@@ -98,7 +220,6 @@ func _gui_input(event):
 					original_disk_position = tile.disk.global_position
 					can_grab = event.pressed
 					grabbed_offset=clicked_tile.get_child(0).get_global_position()-get_global_mouse_position()
-					clicked_tile.clear_tile()
 				
 	if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT and event.pressed:
 		for i in range(num_slot):
@@ -116,11 +237,13 @@ func _process(delta):
 		var inEmptyTile = (empt_tile_mousePos.x >=0 && empt_tile_mousePos.x <= epmt_tile_texture.get_width() && \
 				empt_tile_mousePos.y >= 0 && empt_tile_mousePos.y <= epmt_tile_texture.get_height())
 		if inEmptyTile:
-			emit_signal("rotate_disk_signal",2)
-			print(clicked_tile.disk.trigger_dir)
+#			print(clicked_tile.disk.trigger_dir)
 			clicked_tile.removeDisk()
 			tile_arr[empt_tile_index].setDisk(hold_disk)
+			init_chaining(hold_disk.get_parent())
 			empt_tile_index = temp_tile_index
+			temp_tile_index=0
+			
 		else: 
 			hold_disk.global_position = original_disk_position
 		hold_disk.z_index = 1

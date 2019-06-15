@@ -8,10 +8,11 @@ const rot_amount:int = 90
 var cur_rot : int
 var bef_rot : int = 0
 var trigger_dir
+var trigger_val
 var widnhei
 var tween_rot
 var rot_arr = [0,-90,-180,-270]
-var disk_dir_arr = ["left","top","right","bottom"]
+var disk_dir_arr = ["left","up","right","down"]
 var disk_value = [0,1,2,3]
 
 func _init(diskName,diskTexture, diskSlot,diskType):
@@ -20,7 +21,14 @@ func _init(diskName,diskTexture, diskSlot,diskType):
 	self.diskSlot = diskSlot
 	texture = diskTexture
 	
-
+func is_blocked(dir):
+	for i in range(disk_dir_arr.size()):
+		if disk_dir_arr[i] == dir:
+			if disk_value[i] == 0:
+				return (true)
+			else: return (false)
+	pass
+	
 func random_arr(i):
 	randomize()
 	return(randi()%i)
@@ -43,7 +51,6 @@ func _ready():
 	self.set_rotation(deg2rad(rot_arr[random_arr(rot_arr.size())]))
 	cur_rot=self.get_rotation_degrees()
 	update_value_rot()
-	$tile_container.connect("rotate_disk_signal",self,"rotate_disk")
 	
 func update_value_rot():
 	var delta_rot = abs(cur_rot - bef_rot)
@@ -57,23 +64,26 @@ func update_value_rot():
 		if disk_value[i]>=4:
 			disk_value[i]-=4
 	update_trigger_direction()
-	print("----------------------------")
-	for i in range(disk_dir_arr.size()):
-		print(disk_dir_arr[i]," : ",disk_value[i])
-	print("----------------------------")
+#	print("----------------------------")
+#	for i in range(disk_dir_arr.size()):
+#		print(disk_dir_arr[i]," : ",disk_value[i])
+#	print("----------------------------")
 		
 func update_trigger_direction():
 	for i in range(disk_value.size()):
 		if diskType == "trigger_01":
 			if disk_value[i] == 1:
 				trigger_dir = disk_dir_arr[i]
+				trigger_val = 1
 		elif diskType == "trigger_02":
 			if disk_value[i] == 2:
 				trigger_dir = disk_dir_arr[i]
+				trigger_val = 2
 		elif diskType == "trigger_03":
 			if disk_value[i] == 3:
 				trigger_dir = disk_dir_arr[i]
-	print("trigger dir: ",trigger_dir)
+				trigger_val = 3
+#	print("trigger dir: ",trigger_dir)
 	pass
 	
 func re_position():
@@ -97,8 +107,8 @@ func rotate_disk(rot_time):
 	tween_rot.start()
 	cur_rot=angle_rot
 	update_value_rot()
-	print("after angle_rot: ",angle_rot)
-	print("after cur_rot: ",cur_rot)
-	print("-------------------------------")
+#	print("after angle_rot: ",angle_rot)
+#	print("after cur_rot: ",cur_rot)
+#	print("-------------------------------")
 	pass
 
