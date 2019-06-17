@@ -62,6 +62,9 @@ https://github.com/Microsoft/vscode/issues/15211
 - can't download openjdk or any other jdk for test build Android.
 - make sure to download/use JDK 8, for Godot
 - AdMob in Godot need several Module and rebuild project
+- tween inside loop became a problem, because it skipped everything,
+and only appear at the end, which is a problem.
+either change the animation, or make node instead generate it directly from script.
 
 #### direction chaining edgecases:
 num_column = 4
