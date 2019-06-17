@@ -65,6 +65,9 @@ https://github.com/Microsoft/vscode/issues/15211
 - tween inside loop became a problem, because it skipped everything,
 and only appear at the end, which is a problem.
 either change the animation, or make node instead generate it directly from script.
+-tween must be inside process function to be able processed with time frame
+
+- disk value not updated correctly, it use the before rotation value
 
 #### direction chaining edgecases:
 num_column = 4

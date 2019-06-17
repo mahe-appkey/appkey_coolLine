@@ -91,22 +91,15 @@ func define_border():
 	pass
 	
 func is_ok_next_dir():
-	print("---")
-	print("index: ",cur_chain_index)
 	if (cur_chain_dir == "up" and border_no_up.has(cur_chain_index)):
-		print("in:no_up")
 		return false
 	elif (cur_chain_dir == "down" and border_no_down.has(cur_chain_index)):
-		print("in:no_down")
 		return false
 	elif (cur_chain_dir == "left" and border_no_left.has(cur_chain_index)):
-		print("in:no_left")
 		return false
 	elif (cur_chain_dir == "right" and border_no_right.has(cur_chain_index)):
-		print("in:no_right")
 		return false
 	else:
-		print("in:check true")
 		return true
 	pass
 	
@@ -123,7 +116,6 @@ func check_next():
 
 func change_dir(dir):
 	print("---")
-	print("change_dir")
 	if dir=="up":
 		cur_chain_dir = "left"
 		print("change from up to left")
@@ -168,32 +160,35 @@ func update_cur_tile():
 	pass
 	
 func chain_me():
-	cur_chain_disk.rotate(prev_chain_disk_value)
-#	yield(get_tree().create_timer(3),"timeout")
-	cur_chain_tile.clear_tile()
+	cur_chain_disk.set_rotation_time(prev_chain_disk_value)
+	cur_chain_disk.start_rot()
+#	yield(get_tree().create_timer(prev_chain_disk_value*0.5),"timeout")
+#	cur_chain_tile.clear_tile()
 	prev_chain_disk_value=cur_chain_disk_val
 	print("chain me")
 	cur_chain_count-=1
 	
 func start_chaining():
-	cur_chain_count =chain_limit-10
+	cur_chain_count =chain_limit
 	prev_chain_count=cur_chain_count
 	print("----------")
 	print("initial")
 	print("cur_chain_dir: ",cur_chain_dir)
 	print("cur_chain_index: ",cur_chain_index)
 	print("cur_chain_disk_val: ",cur_chain_disk_val)
-	check_next()
-	update_cur_tile()
-#	for i in range(2):
-#		print("------")
-#		print("start_chaining_loop: ",chain_limit)
-#		check_next()
-#		update_cur_tile()
-#		if (prev_chain_count>cur_chain_count):
-##			yield(get_tree().create_timer(3),"timeout")
-#			yield(cur_chain_disk,"all_done")
-#			prev_chain_count=cur_chain_count
+#	check_next()
+#	update_cur_tile()
+	while(cur_chain_count>0):
+		print("------")
+		print("start_chaining_loop: ",cur_chain_count)
+		print("prev val: ",prev_chain_disk_value)
+		check_next()
+		update_cur_tile()
+#		yield(get_tree().create_timer(prev_chain_disk_value*0.5),"timeout")
+		if (prev_chain_count>cur_chain_count):
+			yield(get_tree().create_timer(0.9),"timeout")
+			
+			prev_chain_count=cur_chain_count
 #		print("----------")
 #		print("cur_chain_dir: ",cur_chain_dir)
 #		print("cur_chain_index: ",cur_chain_index)

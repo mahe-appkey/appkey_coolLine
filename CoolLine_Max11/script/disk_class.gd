@@ -102,17 +102,34 @@ func rotate_disk(rot_time):
 		print("before cur_rot: ",cur_rot)
 	bef_rot=cur_rot
 	angle_rot-= rot_amount*rot_time
-	tween_rot.interpolate_property(self, "rotation", deg2rad(cur_rot),deg2rad(angle_rot), rot_second*rot_time, \
+	tween_rot.interpolate_property(self, "rotation", deg2rad(cur_rot),deg2rad(angle_rot), 0.7, \
 	Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+#	tween_rot.interpolate_property(self, "rotation", deg2rad(cur_rot),deg2rad(angle_rot), rot_second*rot_time, \
+#	Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 	tween_rot.start()
-#	yield(get_tree().create_timer(3),"timeout")
 #	OS.delay_msec(500*3)
-	yield(tween_rot,"tween_completed")
 	cur_rot=angle_rot
 	update_value_rot()
-	emit_signal("all_done")
+	yield(tween_rot,"tween_completed")
+	print("rotating: ",angle_rot)
+	get_parent().clear_tile()
 #	print("after angle_rot: ",angle_rot)
 #	print("after cur_rot: ",cur_rot)
 #	print("-------------------------------")
 	pass
-
+	
+var rot_start
+var rotation_time
+func set_rotation_time(rt):
+	rotation_time = rt
+	
+func start_rot():
+	rot_start=true
+	
+func _physics_process(delta):
+	if (rot_start == true):
+		if rotation_time > 0:
+			rotate_disk(rotation_time)
+		rot_start=false
+		
+	
