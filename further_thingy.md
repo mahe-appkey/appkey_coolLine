@@ -49,11 +49,13 @@ https://github.com/Microsoft/vscode/issues/15211
 - 
 
 ### to do or experiment:
-- [ ] rotation using tween node in the sprite class, test if it can be added as child or parent, directly?
-- [ ] change the instance? from full script to prefabs?
-- [ ] game control
+- [x] rotation using tween node in the sprite class, test if it can be added as child or parent, directly?
+- [x] change the instance? from full script to prefabs?
+- [x] game control
 - [ ] tes build into android
 - [ ] tes build into iOS
+- [ ] gui and score calculation
+- [ ] state for drag and drop
 
 ### questions?
 - [ ] if every new rounds, all board are turned back to brown, but keep the pieces/drives position and orientation, what about the randomize empty space? change or not?
@@ -97,3 +99,4 @@ for i in range(num_column):
 3. back to one
 
         
+#### correct route

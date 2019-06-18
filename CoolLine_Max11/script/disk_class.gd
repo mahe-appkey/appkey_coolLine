@@ -1,13 +1,14 @@
 extends Sprite
 
-signal all_done
+signal rotation_done
 
 var diskType
 var diskSlot
 var angle_rot
-var rot_second = 0.5
+var rot_second = 0.2
 const rot_amount:int = 90
 var cur_rot : int
+var cur_update_rot : int
 var bef_rot : int = 0
 var trigger_dir
 var trigger_val
@@ -52,10 +53,11 @@ func _ready():
 	re_position()
 	self.set_rotation(deg2rad(rot_arr[random_arr(rot_arr.size())]))
 	cur_rot=self.get_rotation_degrees()
+	cur_update_rot=cur_rot
 	update_value_rot()
 	
 func update_value_rot():
-	var delta_rot = abs(cur_rot - bef_rot)
+	var delta_rot = abs(cur_update_rot - bef_rot)
 	var r_num = 0
 	if delta_rot != 0:
 		r_num = abs(delta_rot/90)
@@ -86,13 +88,21 @@ func update_trigger_direction():
 				trigger_dir = disk_dir_arr[i]
 				trigger_val = 3
 #	print("trigger dir: ",trigger_dir)
+	emit_signal("rotation_done")
+#	get_parent().get_parent()._on_rotation_done()
+#	update_prev_chain_disk_value()
 	pass
+
+#func update_prev_chain_disk_value():
+#	for i in range(disk_dir_arr.size()):
+#		if disk_dir_arr[i] == get_parent().get_parent().cur_chain_dir:
+#			get_parent().get_parent().set_prev_chain_disk_value(disk_value[i])
 	
 func re_position():
 	self.position.x=get_parent().get_rect().size.x/2
 	self.position.y=get_parent().get_rect().size.y/2
-	
-func rotate_disk(rot_time):
+
+func calculate_rotation(rot_time):
 	angle_rot = cur_rot
 	if abs(angle_rot) >= 360:
 		angle_rot +=360
@@ -102,17 +112,23 @@ func rotate_disk(rot_time):
 		print("before cur_rot: ",cur_rot)
 	bef_rot=cur_rot
 	angle_rot-= rot_amount*rot_time
-	tween_rot.interpolate_property(self, "rotation", deg2rad(cur_rot),deg2rad(angle_rot), 0.7, \
-	Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-#	tween_rot.interpolate_property(self, "rotation", deg2rad(cur_rot),deg2rad(angle_rot), rot_second*rot_time, \
+	cur_update_rot=angle_rot
+	update_value_rot()
+	
+func rotate_disk(rot_time):
+#	tween_rot.interpolate_property(self, "rotation", deg2rad(cur_rot),deg2rad(angle_rot), 0.7, \
 #	Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-	tween_rot.start()
+	if rot_time > 0:
+		tween_rot.interpolate_property(self, "rotation", deg2rad(cur_rot),deg2rad(angle_rot), rot_second*rot_time, \
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+		tween_rot.start()
 #	OS.delay_msec(500*3)
 	cur_rot=angle_rot
-	update_value_rot()
+#	update_value_rot()
 	yield(tween_rot,"tween_completed")
 	print("rotating: ",angle_rot)
 	get_parent().clear_tile()
+#	emit_signal("rotation_done")
 #	print("after angle_rot: ",angle_rot)
 #	print("after cur_rot: ",cur_rot)
 #	print("-------------------------------")
@@ -128,8 +144,12 @@ func start_rot():
 	
 func _physics_process(delta):
 	if (rot_start == true):
-		if rotation_time > 0:
-			rotate_disk(rotation_time)
+		calculate_rotation(rotation_time)
+		rotate_disk(rotation_time)
+#		if rotation_time > 0:
+##			calculate_rotation(rotation_time)
+#			rotate_disk(rotation_time)
+#			pass
 		rot_start=false
 		
 	
