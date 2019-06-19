@@ -1,6 +1,6 @@
 extends Sprite
 
-signal rotation_done
+#signal rotation_done
 
 var diskType
 var diskSlot
@@ -88,7 +88,7 @@ func update_trigger_direction():
 				trigger_dir = disk_dir_arr[i]
 				trigger_val = 3
 #	print("trigger dir: ",trigger_dir)
-	emit_signal("rotation_done")
+#	emit_signal("rotation_done")
 #	get_parent().get_parent()._on_rotation_done()
 #	update_prev_chain_disk_value()
 	pass
@@ -106,10 +106,10 @@ func calculate_rotation(rot_time):
 	angle_rot = cur_rot
 	if abs(angle_rot) >= 360:
 		angle_rot +=360
-		print("before angle_rot: ",angle_rot)
+#		print("before angle_rot: ",angle_rot)
 	if abs(cur_rot) >= 360:
 		cur_rot +=360
-		print("before cur_rot: ",cur_rot)
+#		print("before cur_rot: ",cur_rot)
 	bef_rot=cur_rot
 	angle_rot-= rot_amount*rot_time
 	cur_update_rot=angle_rot
@@ -126,7 +126,7 @@ func rotate_disk(rot_time):
 	cur_rot=angle_rot
 #	update_value_rot()
 	yield(tween_rot,"tween_completed")
-	print("rotating: ",angle_rot)
+#	print("rotating: ",angle_rot)
 	get_parent().clear_tile()
 #	emit_signal("rotation_done")
 #	print("after angle_rot: ",angle_rot)

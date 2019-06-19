@@ -36,7 +36,7 @@ func _init(slotIndex):
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	widnhei = get_parent().get_rect().size.x/get_parent().get_columns()
+	widnhei = get_parent().get_rect().size.x/(get_parent().get_columns())
 	sprite_img_clear = resize_img(sprite_img_texture_clear,widnhei)
 	sprite_img = resize_img(sprite_img_texture,widnhei)
 #	var sprite_img = resize_img(sprite_img_texture,widnhei)
