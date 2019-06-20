@@ -53,9 +53,10 @@ https://github.com/Microsoft/vscode/issues/15211
 - [x] change the instance? from full script to prefabs?
 - [x] game control
 - [ ] tes build into android
+    - [ ] download build template and bring it to appkey (400MB++)
 - [ ] tes build into iOS
 - [ ] gui and score calculation
-- [ ] state for drag and drop
+- [x] state for drag and drop
 
 ### questions?
 - [ ] if every new rounds, all board are turned back to brown, but keep the pieces/drives position and orientation, what about the randomize empty space? change or not?
