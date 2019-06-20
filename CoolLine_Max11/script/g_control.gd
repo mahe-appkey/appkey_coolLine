@@ -30,7 +30,7 @@ func _init():
 func _ready():
 	board_control.connect("shots_used",self,"on_shots_used")
 	board_control.connect("tile_greened",self,"on_tile_greened")
-	yield(get_tree().create_timer(1.5),"timeout")
+	yield(get_tree().create_timer(1),"timeout")
 	update_round_transition()
 	pass
 
