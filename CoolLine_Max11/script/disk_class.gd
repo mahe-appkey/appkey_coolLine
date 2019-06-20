@@ -18,6 +18,7 @@ var rot_arr = [0,-90,-180,-270]
 var disk_dir_arr = ["left","up","right","down"]
 var disk_value = [0,1,2,3]
 
+
 func _init(diskName,diskTexture, diskSlot,diskType):
 	name = diskName
 	self.diskType = diskType

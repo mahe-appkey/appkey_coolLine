@@ -1,7 +1,7 @@
 extends GridContainer
 
 # signal
-
+signal tile_greened
 # variable
 const g_ratio = 1.618
 var tile_arr = Array()
@@ -96,7 +96,7 @@ func generate_disk():
 		var diskType = diskDictionary[ran_disk].diskType
 		var diskIcon = diskDictionary[ran_disk].diskIcon
 		disk_arr.append(disk_class.new(diskName,diskIcon,null,diskType))
-	
+		
 func generate_tile():
 #	init tile
 	for i in range(num_slot):
@@ -114,7 +114,7 @@ func _gui_input(event):
 			var tile = tile_arr[i]
 			if (tile!=tile_arr[empt_tile_index]):
 				var tile_mousePos = tile.get_local_mouse_position()
-				var disk_texture = tile.get_child(0).get_texture()
+				var disk_texture = tile.get_child(1).get_texture()
 				var isClicked = tile_mousePos.x >=0 && tile_mousePos.x <= disk_texture.get_width() && \
 				tile_mousePos.y >= 0 && tile_mousePos.y <= disk_texture.get_height()
 				if isClicked:
@@ -122,36 +122,13 @@ func _gui_input(event):
 					clicked_tile = tile
 					original_disk_position = tile.disk.global_position
 					can_grab = event.pressed
-					grabbed_offset=clicked_tile.get_child(0).get_global_position()-get_global_mouse_position()
+					grabbed_offset=clicked_tile.get_child(1).get_global_position()-get_global_mouse_position()
 				
 	if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT and event.pressed and able_to_drag:
 		for i in range(num_slot):
 			tile_arr[i].reset_tile()
-func _input(event):
-	if Input.is_mouse_button_pressed(BUTTON_LEFT) and can_grab and able_to_drag:
-		if clicked_tile != null:
-			hold_disk = clicked_tile.disk
-			hold_disk.z_index = 99
-			hold_disk.global_position = grabbed_offset+get_global_mouse_position()
-	elif hold_disk!=null and clicked_tile != null and able_to_drag:
-		var empt_tile_mousePos = tile_arr[empt_tile_index].get_local_mouse_position()
-		var epmt_tile_texture = tile_arr[empt_tile_index].get_texture()
-		var inEmptyTile = (empt_tile_mousePos.x >=0 && empt_tile_mousePos.x <= epmt_tile_texture.get_width() && \
-				empt_tile_mousePos.y >= 0 && empt_tile_mousePos.y <= epmt_tile_texture.get_height())
-		if inEmptyTile:
-			clicked_tile.removeDisk()
-			tile_arr[empt_tile_index].setDisk(hold_disk)
-			empt_tile_index = temp_tile_index
-			temp_tile_index=0
-			init_chaining(hold_disk.get_parent())
-		else: 
-			hold_disk.global_position = original_disk_position
-		hold_disk.z_index = 1
-		hold_disk = null
-		clicked_tile = null
-	pass
-	
-func _process(delta):
+			
+#func _input(event):
 #	if Input.is_mouse_button_pressed(BUTTON_LEFT) and can_grab and able_to_drag:
 #		if clicked_tile != null:
 #			hold_disk = clicked_tile.disk
@@ -173,6 +150,30 @@ func _process(delta):
 #		hold_disk.z_index = 1
 #		hold_disk = null
 #		clicked_tile = null
+#	pass
+	
+func _process(delta):
+	if Input.is_mouse_button_pressed(BUTTON_LEFT) and can_grab and able_to_drag:
+		if clicked_tile != null:
+			hold_disk = clicked_tile.disk
+			hold_disk.z_index = 99
+			hold_disk.global_position = grabbed_offset+get_global_mouse_position()
+	elif hold_disk!=null and clicked_tile != null and able_to_drag:
+		var empt_tile_mousePos = tile_arr[empt_tile_index].get_local_mouse_position()
+		var epmt_tile_texture = tile_arr[empt_tile_index].get_texture()
+		var inEmptyTile = (empt_tile_mousePos.x >=0 && empt_tile_mousePos.x <= epmt_tile_texture.get_width() && \
+				empt_tile_mousePos.y >= 0 && empt_tile_mousePos.y <= epmt_tile_texture.get_height())
+		if inEmptyTile:
+			clicked_tile.removeDisk()
+			tile_arr[empt_tile_index].setDisk(hold_disk)
+			empt_tile_index = temp_tile_index
+			temp_tile_index=0
+			init_chaining(hold_disk.get_parent())
+		else: 
+			hold_disk.global_position = original_disk_position
+		hold_disk.z_index = 1
+		hold_disk = null
+		clicked_tile = null
 	pass
 		
 func init_chaining(start_tile):
@@ -337,7 +338,9 @@ func update_cur_tile():
 	set_prev_chain_disk_value()		
 #	chain_me()
 	pass
-
+func tile_is_green():
+	emit_signal("tile_greened")
+	
 func set_prev_chain_disk_value():
 	if !is_trigger:
 		for i in range(cur_chain_disk.disk_dir_arr.size()):
@@ -357,7 +360,7 @@ func set_prev_chain_disk_value():
 #		print("prev val from rot")
 #		prev_chain_disk_value = pv
 #	chain_me()
-	
+
 func chain_me():
 	if (prev_chain_index != cur_chain_index):
 #		print("---")
@@ -365,12 +368,15 @@ func chain_me():
 #		print("prev val: ",prev_chain_disk_value)
 		cur_chain_disk.set_rotation_time(prev_chain_disk_value)
 		cur_chain_disk.start_rot()
+#		print("chain: ",cur_chain_count)
+		cur_chain_tile.set_chain_label(cur_chain_count)
 		cur_chain_count-=1
 		is_trigger = false
 #	dir_changed = false
-		
+signal shots_used
 func start_chaining():
 	is_trigger = true
+	emit_signal("shots_used")
 	cur_chain_count =chain_limit
 	prev_chain_count=cur_chain_count
 #	print("----------")

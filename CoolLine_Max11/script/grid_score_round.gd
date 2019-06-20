@@ -10,6 +10,7 @@ func _init():
 	pass
 	
 func _ready():
+	masterGame.connect("score_update",self,"score_update")
 	for i in range(num_slot):
 		var score = preload("res://CoolLine_Max11/node/score_label.tscn").instance()
 		score.get_child(0).text = str(i+1)+"R"
@@ -21,4 +22,8 @@ func _ready():
 	for i in range(score_l_arr.size()):
 		score_l_arr[i].get_child(0).get_child(0).text = str(masterGame.rounds_score[i])
 	
+	pass
+
+func score_update(idx,val):
+	score_l_arr[idx].on_update_score(val)
 	pass

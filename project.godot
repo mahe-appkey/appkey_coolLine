@@ -16,6 +16,8 @@ _global_script_class_icons={
 [application]
 
 config/name="COOL LINE<MAX11>"
+boot_splash/image="res://CoolLine_Max11/img/logo.png"
+boot_splash/fullsize=false
 config/icon="res://icon.png"
 
 [display]
@@ -31,7 +33,13 @@ window/stretch/aspect="keep"
 pointing/emulate_touch_from_mouse=true
 pointing/emulate_mouse_from_touch=false
 
+[network]
+
+limits/debugger_stdout/max_messages_per_frame=20
+limits/debugger_stdout/max_errors_per_frame=20
+
 [rendering]
 
 quality/driver/fallback_to_gles2=true
+vram_compression/import_etc=true
 environment/default_environment="res://default_env.tres"
