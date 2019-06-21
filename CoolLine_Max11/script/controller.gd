@@ -2,6 +2,8 @@ extends GridContainer
 
 # signal
 signal tile_greened
+signal chain_end
+signal disk_spin
 # variable
 const g_ratio = 1.618
 var tile_arr = Array()
@@ -107,6 +109,10 @@ func generate_tile():
 func random_arr(i):
 	randomize()
 	return(randi()%i)
+
+func reset_all_tile():
+	for i in range(num_slot):
+		tile_arr[i].reset_tile()
 	
 func _gui_input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed and able_to_drag:
@@ -124,9 +130,9 @@ func _gui_input(event):
 					can_grab = event.pressed
 					grabbed_offset=clicked_tile.get_child(1).get_global_position()-get_global_mouse_position()
 				
-	if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT and event.pressed and able_to_drag:
+	if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT and event.pressed:
 		for i in range(num_slot):
-			tile_arr[i].reset_tile()
+			tile_arr[i].clear_tile()
 			
 #func _input(event):
 #	if Input.is_mouse_button_pressed(BUTTON_LEFT) and can_grab and able_to_drag:
@@ -370,6 +376,7 @@ func chain_me():
 		cur_chain_disk.start_rot()
 #		print("chain: ",cur_chain_count)
 		cur_chain_tile.set_chain_label(cur_chain_count)
+		emit_signal("disk_spin")
 		cur_chain_count-=1
 		is_trigger = false
 #	dir_changed = false
@@ -411,5 +418,6 @@ func start_chaining():
 #	later please move it into after calculation
 	yield(get_tree().create_timer(1),"timeout")
 	able_to_drag = true
+	emit_signal("chain_end")
 #	queue_free()
 	

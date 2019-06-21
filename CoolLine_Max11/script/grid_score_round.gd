@@ -23,7 +23,12 @@ func _ready():
 		score_l_arr[i].get_child(0).get_child(0).text = str(masterGame.rounds_score[i])
 	
 	pass
-
+	
+func current_round_score(idx):
+	for score in score_l_arr:
+		score.not_activated_score()
+	pass
+	
 func score_update(idx,val):
 	score_l_arr[idx].on_update_score(val)
 	pass

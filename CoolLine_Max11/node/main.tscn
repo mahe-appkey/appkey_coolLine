@@ -1,10 +1,10 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://CoolLine_Max11/script/g_control.gd" type="Script" id=1]
 [ext_resource path="res://CoolLine_Max11/style/board_panel_style.tres" type="StyleBox" id=2]
 [ext_resource path="res://CoolLine_Max11/script/dynamic_panel_board.gd" type="Script" id=3]
 [ext_resource path="res://CoolLine_Max11/script/controller.gd" type="Script" id=4]
-[ext_resource path="res://CoolLine_Max11/script/dynamic_panel_total_score.gd" type="Script" id=5]
+[ext_resource path="res://CoolLine_Max11/node/Panel_e.tscn" type="PackedScene" id=5]
 [ext_resource path="res://CoolLine_Max11/script/dynamic_panel_score.gd" type="Script" id=6]
 [ext_resource path="res://CoolLine_Max11/script/grid_score_round.gd" type="Script" id=7]
 [ext_resource path="res://CoolLine_Max11/node/num_shots_label.tscn" type="PackedScene" id=8]
@@ -12,6 +12,7 @@
 [ext_resource path="res://CoolLine_Max11/node/total_score_label.tscn" type="PackedScene" id=10]
 [ext_resource path="res://CoolLine_Max11/script/total_score_label.gd" type="Script" id=11]
 [ext_resource path="res://CoolLine_Max11/font/ARCADECLASSIC.TTF" type="DynamicFontData" id=12]
+[ext_resource path="res://CoolLine_Max11/node/pop_up_score.tscn" type="PackedScene" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -33,7 +34,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5, 1.5, 2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -100, 400 ), Vector2( 120, 400 ), Vector2( 120, 400 ), Vector2( 400, 400 ) ]
+"values": [ Vector2( -100, 400 ), Vector2( 90, 400 ), Vector2( 90, 400 ), Vector2( 400, 400 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:custom_colors/font_color")
@@ -81,7 +82,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0, 2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 1, 2 ]
+"values": [ 2, 2 ]
 }
 
 [node name="MainGame" type="Node"]
@@ -114,15 +115,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Panel_total_score" type="Panel" parent="."]
-margin_left = 2.0
-margin_right = 502.0
-margin_bottom = 136.0
-custom_styles/panel = ExtResource( 2 )
-script = ExtResource( 5 )
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="Panel_total_score" parent="." instance=ExtResource( 5 )]
 
 [node name="Panel_score_round" type="Panel" parent="."]
 margin_left = 2.0
@@ -174,23 +167,28 @@ margin_bottom = 115.644
 script = ExtResource( 11 )
 
 [node name="round_label_container" type="Node2D" parent="."]
+z_index = 4
 
 [node name="round_black_panel" type="Panel" parent="round_label_container"]
 modulate = Color( 1, 1, 1, 0 )
 margin_right = 510.0
 margin_bottom = 896.0
+mouse_filter = 1
 
 [node name="round_label" type="Label" parent="round_label_container"]
 margin_left = -100.0
 margin_top = 400.0
-margin_right = 142.0
+margin_right = 238.0
 margin_bottom = 465.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 0 )
 custom_colors/font_outline_modulate = Color( 1, 1, 1, 0 )
-text = "Round 00"
+text = "FINAL ROUND"
 align = 1
 valign = 1
 
 [node name="round_label_anim" type="AnimationPlayer" parent="round_label_container/round_label"]
 anims/round_start = SubResource( 2 )
+
+[node name="popup_control" parent="." instance=ExtResource( 13 )]
+z_index = 5

@@ -52,25 +52,33 @@ https://github.com/Microsoft/vscode/issues/15211
 - [x] rotation using tween node in the sprite class, test if it can be added as child or parent, directly?
 - [x] change the instance? from full script to prefabs?
 - [x] game control
-- [ ] tes build into android
-    - [ ] download build template and bring it to appkey (400MB++)
+- [x] tes build into android
+    - [x] download build template and bring it to appkey (400MB++)
 - [ ] tes build into iOS
-- [ ] gui and score calculation
+- [ ] menu
+    - [ ] main menu
+    - [ ] score/ranking
+    - [ ]
+    - [ ] option
+- [ ] transition when round end + calculation
+- [ ] sounds
+- [x] score calculation
 - [x] state for drag and drop
 
 ### questions?
 - [ ] if every new rounds, all board are turned back to brown, but keep the pieces/drives position and orientation, what about the randomize empty space? change or not?
+- [ ] how about the calculation? score calculation when not complete and score calculation on complete?
 
 ### problems
-- can't download openjdk or any other jdk for test build Android.
-- make sure to download/use JDK 8, for Godot
+- ~~can't download openjdk or any other jdk for test build Android.~~
+- ~~make sure to download/use JDK 8, for Godot~~
 - AdMob in Godot need several Module and rebuild project
-- tween inside loop became a problem, because it skipped everything,
+- ~~tween inside loop became a problem, because it skipped everything,
 and only appear at the end, which is a problem.
-either change the animation, or make node instead generate it directly from script.
--tween must be inside process function to be able processed with time frame
+either change the animation, or make node instead generate it directly from script.~~
+- ~~tween must be inside process function to be able processed with time frame~~
 
-- disk value not updated correctly, it use the before rotation value
+- ~~disk value not updated correctly, it use the before rotation value~~
 
 #### direction chaining edgecases:
 num_column = 4

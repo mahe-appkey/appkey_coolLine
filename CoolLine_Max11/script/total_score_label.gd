@@ -1,6 +1,6 @@
 extends Control
 
-const calc_time = 2
+const calc_time = 1
 var total_score
 onready var masterGame = get_node("../../")
 onready var t_score_text = get_node("t_score_label/t_score_num_label")
@@ -19,7 +19,7 @@ func _ready():
 
 func on_total_score_updated(val):
 	score_value = final_value
-	final_value += deg2rad(val)
+	final_value = deg2rad(val)
 	update_the_score()
 	pass
 	
@@ -29,9 +29,10 @@ func update_the_score():
 	Tween.TRANS_LINEAR,Tween.EASE_IN)
 	tween_text.start()
 	yield(tween_text,"tween_completed")
+	score_value = final_value
 	pass
 
-func _process(delta):
+func _physics_process(delta):
 	var round_val = rad2deg(score_value)
-	t_score_text.text = str(int(round_val))
+	t_score_text.text = str(round(round_val))
 	pass
