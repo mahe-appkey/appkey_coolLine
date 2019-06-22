@@ -197,6 +197,7 @@ func init_chaining(start_tile):
 	cur_chain_disk = cur_chain_tile.disk
 	cur_chain_disk_val = cur_chain_disk.trigger_val
 	cur_chain_dir = cur_chain_disk.trigger_dir
+	prev_chain_disk=cur_chain_disk
 	prev_chain_disk_value=cur_chain_disk_val
 	prev_chain_index=cur_chain_index
 	start_chaining()
@@ -352,6 +353,7 @@ func set_prev_chain_disk_value():
 		for i in range(cur_chain_disk.disk_dir_arr.size()):
 			if cur_chain_disk.disk_dir_arr[i] == cur_chain_dir:
 				cur_chain_disk_val = cur_chain_disk.disk_value[i]
+#		bug... in is trigger for this prev_chain_disk
 		for i in range(prev_chain_disk.disk_dir_arr.size()):
 			if prev_chain_disk.disk_dir_arr[i] == cur_chain_dir:
 				prev_chain_disk_value = prev_chain_disk.disk_value[i]

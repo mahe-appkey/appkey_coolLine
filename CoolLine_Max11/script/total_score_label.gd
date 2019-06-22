@@ -1,5 +1,6 @@
 extends Control
 
+signal calc_done
 const calc_time = 1
 var total_score
 onready var masterGame = get_node("../../")
@@ -30,6 +31,7 @@ func update_the_score():
 	tween_text.start()
 	yield(tween_text,"tween_completed")
 	score_value = final_value
+	emit_signal("calc_done")
 	pass
 
 func _physics_process(delta):

@@ -171,8 +171,9 @@ z_index = 4
 
 [node name="round_black_panel" type="Panel" parent="round_label_container"]
 modulate = Color( 1, 1, 1, 0 )
+margin_top = 316.0
 margin_right = 510.0
-margin_bottom = 896.0
+margin_bottom = 533.0
 mouse_filter = 1
 
 [node name="round_label" type="Label" parent="round_label_container"]

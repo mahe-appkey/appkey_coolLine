@@ -68,6 +68,9 @@ https://github.com/Microsoft/vscode/issues/15211
 ### questions?
 - [ ] if every new rounds, all board are turned back to brown, but keep the pieces/drives position and orientation, what about the randomize empty space? change or not?
 - [ ] how about the calculation? score calculation when not complete and score calculation on complete?
+- [ ] what are the theme and color composition?
+- [ ] what about the assets?
+- [ ] to how much degree should the animation done?
 
 ### problems
 - ~~can't download openjdk or any other jdk for test build Android.~~

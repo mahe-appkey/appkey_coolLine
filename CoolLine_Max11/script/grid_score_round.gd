@@ -25,8 +25,9 @@ func _ready():
 	pass
 	
 func current_round_score(idx):
-	for score in score_l_arr:
-		score.not_activated_score()
+	score_l_arr[idx].active_score()
+	if idx>0:
+		score_l_arr[idx-1].normal_score()
 	pass
 	
 func score_update(idx,val):

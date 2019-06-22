@@ -11,25 +11,31 @@ func _ready():
 	score_text.add_child(tween_text_score)
 	score_value = 0
 	final_value = 0
-	normal_score()
+	not_active_score()
 	pass
 
 func normal_score():
-	self.get_child(0).set("custom_colors/font_color",Color(255,255,255))
-	self.get_child(0).get_child(0).set("custom_colors/font_color",Color(0,0,0))
-	self.get_child(0).get_child(0).set("custom_styles/bg_color",Color(136,134,134))
+	self.get_child(0).add_color_override("font_color", Color(1,1,1,0.5))
+	self.get_child(0).get_child(0).add_color_override("font_color", Color(0,0,0,255))
+	self.get_child(0).get_child(0).set_modulate(Color(0.7,0.7,0.7,1))
+#	self.get_child(0).set("custom_colors/font_color",Color(255,255,255))
+#	self.get_child(0).get_child(0).set("custom_colors/font_color",Color(0,0,0))
+#	self.get_child(0).get_child(0).set("custom_styles/bg_color",Color(136,134,134))
 	pass
 
 func active_score():
-	self.get_child(0).set("custom_colors/font_color",Color(255,179,179))
-	self.get_child(0).get_child(0).set("custom_colors/font_color",Color(0,0,0))
-	self.get_child(0).get_child(0).set("custom_styles/bg_color",Color(255,255,255))
+	self.get_child(0).add_color_override("font_color", Color((255/255),(179/255),(179/255),1))
+	self.get_child(0).get_child(0).add_color_override("font_color", Color(0,0,0,1))
+	self.get_child(0).get_child(0).set_modulate(Color(1,1,1,1))
+#	self.get_child(0).set("custom_colors/font_color",Color(255,179,179))
+#	self.get_child(0).get_child(0).set("custom_colors/font_color",Color(0,0,0))
+#	self.get_child(0).get_child(0).set("custom_styles/bg_color",Color(255,255,255))
 	pass
 
 func not_active_score():
-	self.get_child(0).set("custom_colors/font_color",Color(136,134,134))
-	self.get_child(0).get_child(0).set("custom_colors/font_color",Color(136,134,134))
-	self.get_child(0).get_child(0).set("custom_styles/bg_color",Color(136,134,134))
+	self.get_child(0).add_color_override("font_color", Color((134/255),(134/255),(134/255),0.5))
+	self.get_child(0).get_child(0).add_color_override("font_color", Color((134/255),(134/255),(134/255),0.5))
+	self.get_child(0).get_child(0).set_modulate(Color(1,1,1,0.5))
 	pass
 
 
