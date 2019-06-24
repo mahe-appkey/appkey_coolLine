@@ -16,8 +16,8 @@ func _ready():
 		score.get_child(0).text = str(i+1)+"R"
 		score_l_arr.append(score)
 		
-	for score in score_l_arr:
-		add_child(score)
+	for score2 in score_l_arr:
+		add_child(score2)
 		
 	for i in range(score_l_arr.size()):
 		score_l_arr[i].get_child(0).get_child(0).text = str(masterGame.rounds_score[i])

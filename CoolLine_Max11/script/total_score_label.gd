@@ -2,7 +2,6 @@ extends Control
 
 signal calc_done
 const calc_time = 1
-var total_score
 onready var masterGame = get_node("../../")
 onready var t_score_text = get_node("t_score_label/t_score_num_label")
 var score_value
@@ -25,7 +24,6 @@ func on_total_score_updated(val):
 	pass
 	
 func update_the_score():
-	print("dor",rad2deg(final_value))
 	tween_text.interpolate_property(self,"score_value",score_value,final_value,calc_time,\
 	Tween.TRANS_LINEAR,Tween.EASE_IN)
 	tween_text.start()

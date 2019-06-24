@@ -1,16 +1,24 @@
 extends Node
 
-signal score_saved
-
-var cur_score = Array()
 var arr_score = Array()
+var arr_config = Array()
 var score_file = "user://user_score.clm"
+var config_file = "user://user_config.cfg"
 
 func delete_save_score():
 	var dir = Directory.new()
 	if dir.file_exists(score_file):
 		dir.remove(score_file)
 	pass
+	
+func reset_config():
+	var dir = Directory.new()
+	if dir.file_exists(config_file):
+		dir.remove(config_file)
+	pass
+
+func get_all_score():
+	return arr_score
 	
 func sort_score():
 	var columnToSort = 0
@@ -24,9 +32,35 @@ func sort_score():
 				
 	save_score()
 
+func load_config():
+	var f = File.new()
+	if f.file_exists(config_file):
+		f.open(config_file, File.READ)
+		while not f.eof_reached():
+			var config_temp = f.get_csv_line(",")
+			if config_temp !=null:
+				arr_config.append([\
+				str(config_temp[0]),\
+				int(config_temp[config_temp.size()-1])])
+		arr_config.pop_back()
+		f.close()
+
+func save_config(arr_cfg):
+	var f = File.new()
+	f.open(config_file, File.WRITE)
+	for arr in arr_cfg:
+		var temp_config_str = \
+		str(arr[0])+","+\
+		str(arr[1])
+		f.store_line(temp_config_str)
+	f.close()
+	pass
+
+func get_all_config():
+	return arr_config
+
 func load_score():
 	var f = File.new()
-	print(f.file_exists(score_file))
 	if f.file_exists(score_file):
 		f.open(score_file, File.READ)
 		while not f.eof_reached():
@@ -52,9 +86,6 @@ func save_score():
 		str(arr[2])
 		f.store_line(temp_score_str)
 	f.close()
-	print("saved")
-	emit_signal("score_saved")
-	print("signal")
 	pass
 
 func proc_cur_score(score):
@@ -74,8 +105,4 @@ func _init():
 	pass
 
 func _ready():
-	load_score()
-	for arr in arr_score:
-		print(str(arr[0])+" "+arr[1]+" "+arr[2])
-	delete_save_score()
 	pass

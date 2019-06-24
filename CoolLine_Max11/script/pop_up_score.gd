@@ -94,7 +94,6 @@ func toogle_popup():
 	pass
 	
 func on_ok_pressed():
-	print("ok press")
 	ok_button.hide()
 	score_detail.hide()
 	score_anim.play_backwards("popup_anim")
@@ -104,11 +103,9 @@ func on_ok_pressed():
 	pass
 
 func on_exit_pressed():
-	print("exit press")
-	emit_signal("ok_press")
+	emit_signal("exit_press")
 	pass
 
 func on_play_pressed():
-	print("play press")
 	emit_signal("play_press")
 	pass

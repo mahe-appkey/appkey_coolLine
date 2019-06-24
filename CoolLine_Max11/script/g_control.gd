@@ -19,16 +19,16 @@ var disk_spin_count : int
 var bonus_complete = [1000,1500,2000]
 var is_complete = false
 const rounds_limit = 10
-const shots_limit = 1
+const shots_limit = 4
 var num_shots
 var current_rounds
-var score_data
+#var score_data
 onready var score_labels = get_node("Panel_score_round/grid_score_round")
 onready var popup_control = get_node("popup_control")
 onready var round_trans = get_node("round_label_container/round_label")
 onready var board_control = get_node("Panel_board/board")
 onready var shots_display = get_node("Panel_score_round/shots_container/shots_label/shots_num_label")
-onready var t_score_display = get_node("Panel_score_round/t_score_container/t_score_label/t_score_num_label")
+#onready var t_score_display = get_node("Panel_score_round/t_score_container/t_score_label/t_score_num_label")
 onready var t_score_container = get_node("Panel_score_round/t_score_container")
 
 func _init():
@@ -40,7 +40,7 @@ func _init():
 	tile_green_shots = 0
 	disk_spin_count = 0
 	num_shots = shots_limit
-	current_rounds = 9-1
+	current_rounds = -1
 	total_score = 0
 	total_shots_score = 0
 	for i in range (rounds_limit):
@@ -49,7 +49,18 @@ func _init():
 		shots_score.append(0)
 	pass
 
+func _exit_tree():
+	save_load.free()
+	queue_free()
+	pass
+
+func _notification(what):
+	if (what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST):
+		queue_free()
+		get_tree().change_scene("res://CoolLine_Max11/node/mainMenu.tscn")
+
 func _ready():
+	get_tree().set_auto_accept_quit(false)
 	board_control.connect("shots_used",self,"on_shots_used")
 	board_control.connect("tile_greened",self,"on_tile_greened")
 	board_control.connect("chain_end",self,"on_chain_end")
@@ -68,13 +79,10 @@ func update_round_transition():
 		round_str = round_str+"0"+str(current_rounds+1)
 	else:
 		round_str = "FINAL ROUND"
-#		round_str = round_str+str(current_rounds+1)
 	
 	round_trans.text = round_str
-	print("animation_start")
 	round_trans.get_node("round_label_anim").play_backwards("round_start")
 	yield(round_trans.get_node("round_label_anim"),"animation_finished")
-	print("animation_end")
 	no_input_me(true)
 	pass
 	
@@ -90,11 +98,11 @@ func on_round_end():
 		yield(t_score_container,"calc_done")
 		total_score = total_all_score()
 		save_load.proc_cur_score(total_score)
-#		yield(save_load,"score_saved")
 		emit_signal("game_end")
 	pass
 
 func on_exit_press():
+	get_tree().change_scene("res://CoolLine_Max11/node/mainMenu.tscn")
 	pass
 
 func on_play_press():
@@ -129,9 +137,6 @@ func on_chain_end():
 	else:
 		is_complete = true
 		rounds_score[current_rounds]+=disk_spin_count*tile_green_shots+bonus_complete[num_shots]
-	print("tile_green_shots: ",tile_green_shots)
-	print("tile_green: ",tile_green)
-	print("disk_spin_count: ",disk_spin_count)
 	if (num_shots<1) or is_complete:
 		no_input_me(false)
 		if current_rounds<9:
@@ -145,7 +150,6 @@ func on_chain_end():
 		emit_signal("round_end")
 	else:
 		emit_signal("score_update",current_rounds,rounds_score[current_rounds])
-#		emit_signal("t_score_update",total_all_score())
 	tile_green_shots = 0
 	disk_spin_count = 0
 	pass
@@ -165,6 +169,3 @@ func total_all_score():
 		score_all += rounds_score[i]
 	return score_all
 	pass
-#func calculate_round_score(round_id,score):
-#	rounds_score[round_id] = score
-#	pass

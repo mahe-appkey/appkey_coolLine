@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="COOL LINE MAX11"
-run/main_scene="res://CoolLine_Max11/node/main.tscn"
+run/main_scene="res://CoolLine_Max11/node/mainMenu.tscn"
 boot_splash/image="res://CoolLine_Max11/img/logo.png"
 config/icon="res://icon.png"
 

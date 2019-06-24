@@ -9,8 +9,6 @@ var sprite_img_clear
 var isGreened = false
 onready var chain_label = preload("res://CoolLine_Max11/node/node_chain_label.tscn").instance()
 
-# width and height of texture for tile
-#var widnhei= ((OS.get_window_size().x)/4)-(OS.get_window_size().x/120)
 var widnhei
 
 func is_green():
@@ -42,7 +40,6 @@ func _ready():
 	widnhei = get_parent().get_rect().size.x/(get_parent().get_columns())
 	sprite_img_clear = resize_img(sprite_img_texture_clear,widnhei)
 	sprite_img = resize_img(sprite_img_texture,widnhei)
-#	var sprite_img = resize_img(sprite_img_texture,widnhei)
 	self.set_texture(sprite_img)
 	self.set_stretch_mode(6)
 	self.anchor_top = 0.5

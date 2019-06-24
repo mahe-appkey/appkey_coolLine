@@ -67,6 +67,12 @@ var empty_tile_border = [-1,-1,-1,-1]
 var next_chain_index
 var is_trigger = true
 
+func _exit_tree():
+	for n in disk_arr:
+		n.free()
+	for n in tile_arr:
+		n.free()
+
 func _init():
 #	self.margin_top= (OS.get_window_size().y/(1.5*g_ratio))
 	self.margin_left= 10*g_ratio
@@ -227,96 +233,53 @@ func define_empty_border():
 	
 	if (border_no_up.has(empt_tile_index)):
 		empty_tile_border[2]=-1
-#		border_no_down.pop_back()
 	if (border_no_down.has(empt_tile_index)):
 		empty_tile_border[0]=-1
-#		border_no_up.pop_back()
 	if (border_no_left.has(empt_tile_index)):
 		empty_tile_border[1]=-1
-#		border_no_right.pop_back()
 	if (border_no_right.has(empt_tile_index)):
 		empty_tile_border[3]=-1
-#		border_no_left.pop_back()
-#	print("------")
-#	print("border no up: ")
-#	for i in border_no_up:
-#		print(i)
-#	print("----")
-#	print("border no down: ")
-#	for i in border_no_down:
-#		print(i)
-#	print("----")
-#	print("border no left: ")
-#	for i in border_no_left:
-#		print(i)
-#	print("----")
-#	print("border no right: ")
-#	for i in border_no_right:
-#		print(i)
-#	print("-------")
 	pass
 	
 func is_ok_next_dir(dir,indx,disk):
 	if (dir == "up" and border_no_up.has(indx)) or (dir == "up" and (empty_tile_border[0]==indx)):
-#		print("on_no_up")
 		return false
 	elif (dir == "down" and border_no_down.has(indx)) or (dir == "down" and (empty_tile_border[2]==indx)):
-#		print("on_no_down")
 		return false
 	elif (dir == "left" and border_no_left.has(indx)) or (dir == "left" and (empty_tile_border[3]==indx)):
-#		print("on_no_left")
 		return false
 	elif (dir == "right" and border_no_right.has(indx)) or (dir == "right" and (empty_tile_border[1]==indx)):
-#		print("on_no_right")
 		return false
 	elif (disk.is_blocked(dir)):
-#		print("blocked")
 		return false
 	else:
 		return true
 	pass
 
 func check_next():
-#	print("---")
-#	print("check_next")
 	next_chain_index=update_index(cur_chain_dir,cur_chain_index)
 	if is_ok_next_dir(cur_chain_dir,cur_chain_index,cur_chain_disk):
-#		cur_chain_dir=next_chain_dir
 		cur_chain_index=next_chain_index
-#		update_index(cur_chain_dir,cur_chain_index)
 		update_cur_tile()
 	else:
 		cur_chain_dir=change_dir(cur_chain_dir)
 		next_chain_index = cur_chain_index
 		set_prev_chain_disk_value()
-#		print("change dir")
 		pass
 	pass
 
 func change_dir(dir):
-#	print("---")
 	if dir=="up":
 		dir = "left"
-#		dir_changed=true
-#		print("change from up to left")
 	elif dir=="down":
-#		dir_changed=true
 		dir = "right"
-#		print("change from down to right")
 	elif dir=="left":
-#		dir_changed=true
 		dir = "down"
-#		print("change from left to down")
 	elif dir=="right":
-#		dir_changed=true
 		dir = "up"
-#		print("change from right to up")
-#	print("cur_chain_dir: ",dir)
 	return dir
 		
 func update_index(dir,indx):
-#	print("---")
-#	print("update_cur_index")
 	if dir=="up":
 		indx -=num_column
 	elif dir== "right":
@@ -331,20 +294,13 @@ func update_index(dir,indx):
 var prev_chain_tile
 var prev_chain_disk
 func update_cur_tile():
-#	print("---")
-#	print("update_cur_tile")
 	cur_chain_tile = tile_arr[cur_chain_index]
 	cur_chain_disk = cur_chain_tile.disk
 	prev_chain_tile = tile_arr[prev_chain_index]
 	prev_chain_disk = prev_chain_tile.disk
-#	yield(get_tree().create_timer(0.9),"timeout")
-#	print("dir: ",cur_chain_dir)
-#	for i in range(cur_chain_disk.disk_dir_arr.size()):
-#		if cur_chain_disk.disk_dir_arr[i] == cur_chain_dir:
-#			cur_chain_disk_val = cur_chain_disk.disk_value[i]
 	set_prev_chain_disk_value()		
-#	chain_me()
 	pass
+	
 func tile_is_green():
 	emit_signal("tile_greened")
 	
@@ -353,53 +309,27 @@ func set_prev_chain_disk_value():
 		for i in range(cur_chain_disk.disk_dir_arr.size()):
 			if cur_chain_disk.disk_dir_arr[i] == cur_chain_dir:
 				cur_chain_disk_val = cur_chain_disk.disk_value[i]
-#		bug... in is trigger for this prev_chain_disk
 		for i in range(prev_chain_disk.disk_dir_arr.size()):
 			if prev_chain_disk.disk_dir_arr[i] == cur_chain_dir:
 				prev_chain_disk_value = prev_chain_disk.disk_value[i]
-#		prev_chain_disk_value = cur_chain_disk_val
-#	print("set prev val: ",prev_chain_disk_value)
 	chain_me()
-#	print("dir_changed", dir_changed)
-#	if dir_changed:
-#		print("prev val from cur")
-#		prev_chain_disk_value = pv
-#	else:
-#		print("prev val from rot")
-#		prev_chain_disk_value = pv
-#	chain_me()
 
 func chain_me():
 	if (prev_chain_index != cur_chain_index):
-#		print("---")
-#		print("chain me")
-#		print("prev val: ",prev_chain_disk_value)
 		cur_chain_disk.set_rotation_time(prev_chain_disk_value)
 		cur_chain_disk.start_rot()
-#		print("chain: ",cur_chain_count)
 		cur_chain_tile.set_chain_label(cur_chain_count)
 		emit_signal("disk_spin")
 		cur_chain_count-=1
 		is_trigger = false
-#	dir_changed = false
+
 signal shots_used
 func start_chaining():
 	is_trigger = true
 	emit_signal("shots_used")
 	cur_chain_count =chain_limit
 	prev_chain_count=cur_chain_count
-#	print("----------")
-#	print("initial")
-#	print("cur_chain_dir: ",cur_chain_dir)
-#	print("cur_chain_index: ",cur_chain_index)
-#	print("cur_chain_disk_val: ",cur_chain_disk_val)
 	while(cur_chain_count>0):
-#		print("------")
-#		print("start_chaining_loop: ",cur_chain_count)
-#		print("----")
-#		print("cur_chain_dir: ",cur_chain_dir)
-#		print("cur_chain_index: ",cur_chain_index)
-#		print("cur_chain_disk_val: ",cur_chain_disk_val)
 		check_next()
 		if(prev_chain_index == cur_chain_index):
 			block_limit-=1
@@ -412,14 +342,10 @@ func start_chaining():
 				prev_chain_count=cur_chain_count
 				block_limit = block_time
 				prev_chain_index=cur_chain_index
-#		print("block limit: ",block_limit)
 		is_trigger = false
 	print("-----------")
 	print("end")
-#	able to drag temporarily in here for testing
-#	later please move it into after calculation
 	yield(get_tree().create_timer(1),"timeout")
 	able_to_drag = true
 	emit_signal("chain_end")
-#	queue_free()
 	
