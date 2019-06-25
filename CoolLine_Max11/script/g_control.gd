@@ -63,7 +63,7 @@ func _ready():
 		cur_high_score = save_load.arr_score[0]
 	else:
 		cur_high_score = 0
-	save_load.delete_save_score()
+#	save_load.delete_save_score()
 	board_control.connect("shots_used",self,"on_shots_used")
 	board_control.connect("tile_greened",self,"on_tile_greened")
 	board_control.connect("chain_end",self,"on_chain_end")
