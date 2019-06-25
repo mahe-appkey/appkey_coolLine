@@ -30,12 +30,9 @@ onready var board_control = get_node("Panel_board/board")
 onready var shots_display = get_node("Panel_score_round/shots_container/shots_label/shots_num_label")
 #onready var t_score_display = get_node("Panel_score_round/t_score_container/t_score_label/t_score_num_label")
 onready var t_score_container = get_node("Panel_score_round/t_score_container")
+var is_popup_show = false
 
 func _init():
-	if save_load.load_score():
-		cur_high_score = save_load.arr_score[0]
-	else:
-		cur_high_score = 0
 	tile_green=0
 	tile_green_shots = 0
 	disk_spin_count = 0
@@ -55,12 +52,18 @@ func _exit_tree():
 	pass
 
 func _notification(what):
-	if (what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST):
-		queue_free()
-		get_tree().change_scene("res://CoolLine_Max11/node/mainMenu.tscn")
+	if (what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST) and not is_popup_show:
+		on_exit_press()
 
 func _ready():
+	is_popup_show = false
 	get_tree().set_auto_accept_quit(false)
+	get_tree().set_quit_on_go_back(false)
+	if save_load.load_score():
+		cur_high_score = save_load.arr_score[0]
+	else:
+		cur_high_score = 0
+	save_load.delete_save_score()
 	board_control.connect("shots_used",self,"on_shots_used")
 	board_control.connect("tile_greened",self,"on_tile_greened")
 	board_control.connect("chain_end",self,"on_chain_end")
@@ -99,6 +102,7 @@ func on_round_end():
 		total_score = total_all_score()
 		save_load.proc_cur_score(total_score)
 		emit_signal("game_end")
+		
 	pass
 
 func on_exit_press():
@@ -141,7 +145,9 @@ func on_chain_end():
 		no_input_me(false)
 		if current_rounds<9:
 			emit_signal("before_round_end")
+			is_popup_show = true
 			yield(popup_control,"ok_press")
+			is_popup_show = false
 			emit_signal("score_update",current_rounds,rounds_score[current_rounds])
 			emit_signal("t_score_update",total_all_score())
 		else:

@@ -101,7 +101,12 @@ func on_ok_pressed():
 	self.hide()
 	emit_signal("ok_press")
 	pass
-
+	
+func _notification(what):
+	if (what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST):
+		if cur_round<9:
+			on_ok_pressed()
+		
 func on_exit_pressed():
 	emit_signal("exit_press")
 	pass

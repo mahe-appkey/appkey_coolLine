@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/logo.png-b67240ecafdc00a8429b6a2159081541.stex"
+path="res://.import/logo_appkey.png-8f207e28438dc65a94a8c01d863b697a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://CoolLine_Max11/img/logo.png"
-dest_files=[ "res://.import/logo.png-b67240ecafdc00a8429b6a2159081541.stex" ]
+source_file="res://CoolLine_Max11/img/logo_appkey.png"
+dest_files=[ "res://.import/logo_appkey.png-8f207e28438dc65a94a8c01d863b697a.stex" ]
 
 [params]
 

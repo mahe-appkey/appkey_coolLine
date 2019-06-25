@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icons_help.png-e7beacc96ff3d754a557a0fffb672508.stex"
+path="res://.import/icons_question_mark.png-3c6f480f1703e10e72b39905eb32461c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://CoolLine_Max11/img/icons_help.png"
-dest_files=[ "res://.import/icons_help.png-e7beacc96ff3d754a557a0fffb672508.stex" ]
+source_file="res://CoolLine_Max11/img/icons_question_mark.png"
+dest_files=[ "res://.import/icons_question_mark.png-3c6f480f1703e10e72b39905eb32461c.stex" ]
 
 [params]
 

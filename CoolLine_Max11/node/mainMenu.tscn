@@ -1,11 +1,12 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://CoolLine_Max11/script/mainMenu.gd" type="Script" id=1]
 [ext_resource path="res://CoolLine_Max11/style/board_panel_style.tres" type="StyleBox" id=2]
 [ext_resource path="res://CoolLine_Max11/font/ARCADECLASSIC.TTF" type="DynamicFontData" id=3]
 [ext_resource path="res://CoolLine_Max11/style/main_menu_button_normal.tres" type="StyleBox" id=4]
 [ext_resource path="res://CoolLine_Max11/style/main_menu_button_press.tres" type="StyleBox" id=5]
-[ext_resource path="res://CoolLine_Max11/img/icons_help.png" type="Texture" id=6]
+[ext_resource path="res://CoolLine_Max11/img/icons_question_mark.png" type="Texture" id=6]
+[ext_resource path="res://CoolLine_Max11/node/helpMenu.tscn" type="PackedScene" id=7]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.211765, 0.505882, 0.756863, 0.454902 )
@@ -98,6 +99,7 @@ __meta__ = {
 }
 
 [node name="help_texButton" type="TextureButton" parent="mainMenu_panel"]
+modulate = Color( 0.988235, 0.984314, 0.984314, 1 )
 margin_left = 450.0
 margin_top = 3.0
 margin_right = 500.0
@@ -105,6 +107,11 @@ margin_bottom = 53.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
 texture_normal = ExtResource( 6 )
+expand = true
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="helpMenu" parent="." instance=ExtResource( 7 )]
+visible = false
+z_index = 3

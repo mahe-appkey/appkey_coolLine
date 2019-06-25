@@ -12,9 +12,11 @@ var sfx_cfg = ["sfx",1]
 func _exit_tree():
 	save_load.free()
 	pass
+	
 
 func _ready():
 	get_tree().set_auto_accept_quit(false)
+	get_tree().set_quit_on_go_back(false)
 	back_button.connect("button_up",self,"on_back_press")
 	music_toggle.connect("pressed",self,"test_toggle")
 	sfx_toggle.connect("pressed",self,"test_toggle")
@@ -34,9 +36,8 @@ func adjust_setting():
 	pass
 
 func _notification(what):
-	if (what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST):
-		queue_free()
-		get_tree().change_scene("res://CoolLine_Max11/node/mainMenu.tscn")
+	if (what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST):
+		on_back_press()
 
 func on_back_press():
 	queue_free()

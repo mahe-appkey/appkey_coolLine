@@ -111,4 +111,26 @@ for i in range(num_column):
 3. back to one
 
         
-#### correct route
+#### How to Play
+1. Pieces are divided into four sections, each representing a number between 0 and 3, the sections colored red are the trigger point.
+2. When a piece moved to an empty space, chain linkage will start in the direction of trigger point.
+3. Pieces that in the chain linkage direction will rotate counter-clockwise by the number displayed in the previous pieces.
+4. If in the chain linkage direction, interlocking encounter empty space, perimeter or number of previous pieces are 0 (chain blockage), chain linkage direction will turn to the left.
+5. Chain linkage will stop if the 11 pieces interlocked or chain linkage encounter two times of chain blockage in a row in the same square.
+6. When interlocking happened, piece's square will be activated from brown to green. Each square could only activated once.
+7. Game consist of 10 rounds, in each round, player have 4 chances/shots in order to activated as many square as possible.
+8. In each round, all square will be deactivated, while pieces direction and location will be maintained. Round end if all the square activated or player used all 4 chances/shots.
+
+#### How to Score
+1. If all square activated, the rounds will end and calculation for the score begin. Bonus score given determined by the number of remaining shots when all square activated.
+    - 2 shots remaining, Bonus Score: 2000
+    - 1 shots remaining, Bonus Score: 1500
+    - 0 shots remaining, Bonus Score: 1000
+    Score Calculation:
+    Score = (Fp x Fs) + Bonus
+    Fp: number of pieces interlocked in final shot
+    Fs: number of activated square in final shot
+
+2. If rounds end while not all square activated, score calculation would be:
+    Score = (As x 10)
+    As: number of activated square in the current round

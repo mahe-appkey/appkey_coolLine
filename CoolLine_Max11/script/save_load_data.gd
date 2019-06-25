@@ -88,12 +88,19 @@ func save_score():
 	f.close()
 	pass
 
+func check_zero(ite):
+	if ite<10:
+		return ("0"+str(ite))
+	else:
+		return (str(ite))
+	pass
+
 func proc_cur_score(score):
 	var temp_score = Array()
 	var cur_date = OS.get_date()
 	var cur_time = OS.get_time()
-	var date_str=(str(cur_date.year)+"/"+str(cur_date.month)+"/"+str(cur_date.day))
-	var time_str=(str(cur_time.hour)+":"+str(cur_time.minute)+":"+str(cur_time.second))
+	var date_str=(str(cur_date.year)+"/"+check_zero(cur_date.month)+"/"+check_zero(cur_date.day))
+	var time_str=(check_zero(cur_time.hour)+":"+check_zero(cur_time.minute)+":"+check_zero(cur_time.second))
 	temp_score.append(score)
 	temp_score.append(date_str)
 	temp_score.append(time_str)
