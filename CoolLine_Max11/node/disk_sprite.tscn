@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://CoolLine_Max11/img/disk_01.png" type="Texture" id=1]
+[ext_resource path="res://CoolLine_Max11/node/disk_sprite.gd" type="Script" id=2]
+
+[node name="disk" type="Sprite"]
+position = Vector2( 96, 87.5 )
+scale = Vector2( 0.688406, 0.641304 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )

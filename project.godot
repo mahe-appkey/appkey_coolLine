@@ -15,18 +15,35 @@ _global_script_class_icons={
 
 [application]
 
-config/name="New Game Project"
+config/name="COOL LINE MAX11"
+run/main_scene="res://CoolLine_Max11/node/mainMenu.tscn"
+boot_splash/image="res://CoolLine_Max11/img/logo_appkey.png"
+boot_splash/fullsize=false
 config/icon="res://icon.png"
+config/auto_accept_quit=false
+config/quit_on_go_back=false
 
 [display]
 
-window/size/width=360
-window/size/height=640
-window/size/resizable=false
+window/size/width=504
+window/size/height=896
+window/energy_saving/keep_screen_on=false
 window/handheld/orientation="portrait"
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[network]
+
+limits/debugger_stdout/max_messages_per_frame=20
+limits/debugger_stdout/max_errors_per_frame=20
+
 [rendering]
 
+quality/driver/driver_name="GLES2"
+quality/driver/fallback_to_gles2=true
+vram_compression/import_etc=true
 environment/default_environment="res://default_env.tres"
