@@ -134,3 +134,22 @@ for i in range(num_column):
 2. If rounds end while not all square activated, score calculation would be:
     Score = (As x 10)
     As: number of activated square in the current round
+
+
+### GUI
+resolution (16:9) = 504 x 896
+
+
+### Unity3D Multiplayer github:
+1. https://github.com/david-alejandro-reyes-milian/unity3d-super-metroid-multiplayer
+2. https://github.com/msukkari/A-Distant-Path
+3. https://github.com/Ziririn/HeroesArena
+4. https://github.com/jallen720/unity-multiplayer
+5. https://github.com/KatVHarris/UnityMultiplayer
+6. https://github.com/SocketWeaver/karting
+7. https://github.com/masseydigital/unity-multiplayer-tutorial
+8. https://github.com/pulinho/donttrip
+9. https://github.com/jewong42/dungeon-game
+10. https://github.com/BeardedManStudios/ForgeNetworkingRemastered
+11. https://github.com/corpusc/Paramancer
+12. 
