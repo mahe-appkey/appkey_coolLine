@@ -138,7 +138,10 @@ for i in range(num_column):
 
 ### GUI
 resolution (16:9) = 504 x 896
-
+1. drive_pieces:
+    - replace color:
+        from : fff200
+        to   : 1e77d0
 
 ### Unity3D Multiplayer github:
 1. https://github.com/david-alejandro-reyes-milian/unity3d-super-metroid-multiplayer
