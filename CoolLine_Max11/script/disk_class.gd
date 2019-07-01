@@ -45,7 +45,7 @@ func resize_img(img_texture,w):
 	return new_tex
 	
 func _ready():
-	widnhei = get_parent().get_rect().size.x-5
+	widnhei = get_parent().get_rect().size.x
 	texture = resize_img(texture,widnhei)
 	var tweens = Tween.new()
 	add_child(tweens)

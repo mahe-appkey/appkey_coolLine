@@ -18,16 +18,17 @@ var tile_green_shots : int
 var disk_spin_count : int
 var bonus_complete = [1000,1500,2000]
 var is_complete = false
-const rounds_limit = 10
-const shots_limit = 4
+const rounds_limit = 4
+const shots_limit = 1
 var num_shots
 var current_rounds
 #var score_data
 onready var score_labels = get_node("Panel_score_round/grid_score_round")
 onready var popup_control = get_node("popup_control")
-onready var round_trans = get_node("round_label_container/round_label")
+onready var round_trans = get_node("round_label_container/TextureRect/round_label")
+onready var round_panel = get_node("round_label_container")
 onready var board_control = get_node("Panel_board/board")
-onready var shots_display = get_node("Panel_score_round/shots_container/shots_label/shots_num_label")
+onready var shots_display = get_node("Panel_score_round/shots_container/shots_num_label")
 #onready var t_score_display = get_node("Panel_score_round/t_score_container/t_score_label/t_score_num_label")
 onready var t_score_container = get_node("Panel_score_round/t_score_container")
 var is_popup_show = false
@@ -56,6 +57,7 @@ func _notification(what):
 		on_exit_press()
 
 func _ready():
+	round_panel.hide()
 	is_popup_show = false
 	get_tree().set_auto_accept_quit(false)
 	get_tree().set_quit_on_go_back(false)
@@ -76,16 +78,18 @@ func _ready():
 	pass
 
 func update_round_transition():
+	round_panel.show()
 	yield(get_tree().create_timer(1),"timeout")
 	var round_str = "ROUND "
-	if current_rounds <9:
+	if current_rounds <(rounds_limit-1):
 		round_str = round_str+"0"+str(current_rounds+1)
 	else:
 		round_str = "FINAL ROUND"
 	
 	round_trans.text = round_str
-	round_trans.get_node("round_label_anim").play_backwards("round_start")
+	round_trans.get_node("round_label_anim").play("round_start")
 	yield(round_trans.get_node("round_label_anim"),"animation_finished")
+	round_panel.hide()
 	no_input_me(true)
 	pass
 	
@@ -94,7 +98,7 @@ func on_disk_spin():
 	pass
 	
 func on_round_end():
-	if current_rounds <9:
+	if current_rounds <(rounds_limit-1):
 		yield(t_score_container,"calc_done")
 		on_round_start()
 	else:
@@ -135,7 +139,7 @@ func on_tile_greened():
 	pass
 	
 func on_chain_end():
-	if (tile_green+tile_green_shots)<16:
+	if (tile_green+tile_green_shots)<(board_control.num_slot):
 		tile_green += tile_green_shots
 		rounds_score[current_rounds] = tile_green*10
 	else:
@@ -143,7 +147,7 @@ func on_chain_end():
 		rounds_score[current_rounds]+=disk_spin_count*tile_green_shots+bonus_complete[num_shots]
 	if (num_shots<1) or is_complete:
 		no_input_me(false)
-		if current_rounds<9:
+		if current_rounds<(rounds_limit-1):
 			emit_signal("before_round_end")
 			is_popup_show = true
 			yield(popup_control,"ok_press")

@@ -33,7 +33,7 @@ func on_back_press():
 func update_score_display():
 	if score_arr.size() < 1:
 		score_text +=\
-		"[center][b]No Score Found[/b][/center]"
+		"[center]\n\n\n\nNo Score Found[/center]"
 	else:
 		score_text+=\
 		"[table=4]"

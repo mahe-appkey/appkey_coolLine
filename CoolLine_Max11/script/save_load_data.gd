@@ -112,4 +112,6 @@ func _init():
 	pass
 
 func _ready():
+#	for i in range (20):
+#		proc_cur_score(i*30000)
 	pass

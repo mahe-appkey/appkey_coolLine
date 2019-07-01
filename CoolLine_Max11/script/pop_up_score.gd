@@ -5,7 +5,7 @@ signal exit_press
 signal play_press
 var score_detail_text
 var cur_round
-
+var round_all
 onready var ok_button=get_node("popup_score/ok_button")
 onready var play_button=get_node("popup_score/play_button")
 onready var exit_button=get_node("popup_score/exit_button")
@@ -18,6 +18,7 @@ func _init():
 	pass
 	
 func _ready():
+	round_all = g_manager.rounds_limit-1
 	self.hide()
 	play_button.hide()
 	exit_button.hide()
@@ -31,7 +32,7 @@ func _ready():
 
 func on_round_end():
 	cur_round=g_manager.current_rounds
-	if cur_round<9:
+	if cur_round<(round_all):
 		self.show()
 		update_score_detail()
 		toogle_popup()
@@ -45,7 +46,7 @@ func on_game_end():
 	pass
 	
 func update_score_detail():
-	if cur_round <9:
+	if cur_round <round_all:
 		score_detail_text =\
 		"ROUND 0"+str(cur_round+1)+"\n\n" 
 	else:
@@ -71,7 +72,7 @@ func update_score_detail():
 #		"SCORE:\n"+\
 #		str(g_manager.tile_green)+" x 10 = +"+\
 #		str(g_manager.rounds_score[cur_round])
-	if cur_round==9:
+	if cur_round==round_all:
 		score_detail_text+="\n\nTOTAL SCORE: "+\
 		str(g_manager.total_score)
 		
@@ -85,7 +86,7 @@ func toogle_popup():
 	score_detail.show()
 	score_anim.play("detail_anim")
 	yield(score_anim,"animation_finished")
-	if cur_round==9:
+	if cur_round==round_all:
 		ok_button.hide()
 		play_button.show()
 		exit_button.show()
@@ -104,7 +105,7 @@ func on_ok_pressed():
 	
 func _notification(what):
 	if (what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST):
-		if cur_round<9:
+		if cur_round<round_all:
 			on_ok_pressed()
 		
 func on_exit_pressed():

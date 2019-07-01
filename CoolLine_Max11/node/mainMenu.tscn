@@ -1,117 +1,61 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://CoolLine_Max11/script/mainMenu.gd" type="Script" id=1]
-[ext_resource path="res://CoolLine_Max11/style/board_panel_style.tres" type="StyleBox" id=2]
-[ext_resource path="res://CoolLine_Max11/font/ARCADECLASSIC.TTF" type="DynamicFontData" id=3]
-[ext_resource path="res://CoolLine_Max11/style/main_menu_button_normal.tres" type="StyleBox" id=4]
-[ext_resource path="res://CoolLine_Max11/style/main_menu_button_press.tres" type="StyleBox" id=5]
-[ext_resource path="res://CoolLine_Max11/img/icons_question_mark.png" type="Texture" id=6]
-[ext_resource path="res://CoolLine_Max11/node/helpMenu.tscn" type="PackedScene" id=7]
-
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.211765, 0.505882, 0.756863, 0.454902 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0.172549, 0.584314, 0.843137, 1 )
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="DynamicFont" id=2]
-size = 80
-outline_size = 1
-outline_color = Color( 0.0470588, 0.0470588, 0.0470588, 1 )
-font_data = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=3]
-size = 40
-font_data = ExtResource( 3 )
+[ext_resource path="res://CoolLine_Max11/img/gui_main_menu.jpg" type="Texture" id=2]
+[ext_resource path="res://CoolLine_Max11/img/play_btn.png" type="Texture" id=3]
+[ext_resource path="res://CoolLine_Max11/img/play_push_btn.png" type="Texture" id=4]
 
 [node name="mainMenu" type="Node"]
 script = ExtResource( 1 )
 
-[node name="mainMenu_panel" type="Panel" parent="."]
+[node name="mainMenu_panel" type="TextureRect" parent="."]
 margin_right = 504.0
 margin_bottom = 895.0
-custom_styles/panel = ExtResource( 2 )
+texture = ExtResource( 2 )
+expand = true
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="mainTitle" type="Label" parent="mainMenu_panel"]
-margin_left = 62.0168
-margin_top = 196.905
-margin_right = 451.017
-margin_bottom = 361.905
-custom_styles/normal = SubResource( 1 )
-custom_fonts/font = SubResource( 2 )
-text = "COOL LINE
-<MAX 11>"
-align = 1
-valign = 1
+[node name="startButton" type="TextureButton" parent="mainMenu_panel"]
+margin_left = 151.545
+margin_top = 608.534
+margin_right = 361.545
+margin_bottom = 672.534
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="startButton" type="Button" parent="mainMenu_panel"]
-margin_left = 143.0
-margin_top = 634.0
-margin_right = 362.0
-margin_bottom = 687.0
-custom_styles/hover = ExtResource( 4 )
-custom_styles/pressed = ExtResource( 5 )
-custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = SubResource( 3 )
-text = " START"
+[node name="scoreButton" type="TextureButton" parent="mainMenu_panel"]
+margin_left = 6.0
+margin_top = 811.0
+margin_right = 84.0
+margin_bottom = 891.0
+shortcut_in_tooltip = false
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="scoreButton" type="Button" parent="mainMenu_panel"]
-margin_left = 143.0
-margin_top = 699.0
-margin_right = 362.0
-margin_bottom = 752.0
-custom_styles/hover = ExtResource( 4 )
-custom_styles/pressed = ExtResource( 5 )
-custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = SubResource( 3 )
-text = " SCORE"
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="optionButton" type="Button" parent="mainMenu_panel"]
-margin_left = 143.0
-margin_top = 764.0
-margin_right = 362.0
-margin_bottom = 817.0
-custom_styles/hover = ExtResource( 4 )
-custom_styles/pressed = ExtResource( 5 )
-custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = SubResource( 3 )
-text = " OPTION"
+[node name="optionButton" type="TextureButton" parent="mainMenu_panel"]
+margin_left = 9.0
+margin_top = 4.0
+margin_right = 66.0
+margin_bottom = 64.0
+shortcut_in_tooltip = false
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="help_texButton" type="TextureButton" parent="mainMenu_panel"]
 modulate = Color( 0.988235, 0.984314, 0.984314, 1 )
-margin_left = 450.0
-margin_top = 3.0
-margin_right = 500.0
-margin_bottom = 53.0
-size_flags_horizontal = 7
-size_flags_vertical = 7
-texture_normal = ExtResource( 6 )
-expand = true
+margin_left = 437.0
+margin_top = 5.0
+margin_right = 496.0
+margin_bottom = 66.0
+shortcut_in_tooltip = false
 __meta__ = {
 "_edit_lock_": true
 }
-
-[node name="helpMenu" parent="." instance=ExtResource( 7 )]
-visible = false
-z_index = 3

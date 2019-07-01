@@ -1,35 +1,36 @@
 extends Control
 
 const calc_time = 1
-onready var score_text = get_node("round_label/score_label")
+onready var score_label = get_node("round_label/score_label")
+onready var round_label = get_node("round_label")
 var score_value
 var final_value
 var tween_text_score
 
 func _ready():
 	tween_text_score = Tween.new()
-	score_text.add_child(tween_text_score)
+	score_label.add_child(tween_text_score)
 	score_value = 0
 	final_value = 0
 	not_active_score()
 	pass
 
 func normal_score():
-	self.get_child(0).add_color_override("font_color", Color(1,1,1,0.5))
-	self.get_child(0).get_child(0).add_color_override("font_color", Color(0,0,0,255))
-	self.get_child(0).get_child(0).set_modulate(Color(0.7,0.7,0.7,1))
+	round_label.add_color_override("font_color", Color(1,1,1,0.5))
+	score_label.add_color_override("font_color", Color(1,1,1,1))
+	score_label.set_modulate(Color(1,1,1,1))
 	pass
 
 func active_score():
-	self.get_child(0).add_color_override("font_color", Color((255/255),(179/255),(179/255),1))
-	self.get_child(0).get_child(0).add_color_override("font_color", Color(0,0,0,1))
-	self.get_child(0).get_child(0).set_modulate(Color(1,1,1,1))
+	round_label.add_color_override("font_color", Color((255/255),(255/255),(255/255),1))
+	score_label.add_color_override("font_color", Color(1,1,1,1))
+	score_label.set_modulate(Color(1,1,1,1))
 	pass
 
 func not_active_score():
-	self.get_child(0).add_color_override("font_color", Color((134/255),(134/255),(134/255),0.5))
-	self.get_child(0).get_child(0).add_color_override("font_color", Color((134/255),(134/255),(134/255),0.5))
-	self.get_child(0).get_child(0).set_modulate(Color(1,1,1,0.5))
+	round_label.add_color_override("font_color", Color(1,1,1,0.5))
+	score_label.add_color_override("font_color", Color(1,1,1,0.5))
+	score_label.set_modulate(Color(1,1,1,0.5))
 	pass
 
 
@@ -49,5 +50,5 @@ func update_the_score():
 
 func _physics_process(delta):
 	var round_val = rad2deg(score_value)
-	score_text.text = str(round(round_val))
+	score_label.text = str(round(round_val))
 	pass

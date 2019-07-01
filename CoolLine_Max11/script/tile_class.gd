@@ -2,8 +2,8 @@ extends TextureRect
 
 var slotIndex
 var disk = null
-var sprite_img_texture = preload("res://CoolLine_Max11/img/board_desert.png")
-var sprite_img_texture_clear = preload("res://CoolLine_Max11/img/board_oasis.png")
+var sprite_img_texture = preload("res://CoolLine_Max11/img/tile_01.png")
+var sprite_img_texture_clear = preload("res://CoolLine_Max11/img/tile_02.png")
 var sprite_img
 var sprite_img_clear
 var isGreened = false

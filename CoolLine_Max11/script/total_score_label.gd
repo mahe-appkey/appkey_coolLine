@@ -3,7 +3,7 @@ extends Control
 signal calc_done
 const calc_time = 1
 onready var masterGame = get_node("../../")
-onready var t_score_text = get_node("t_score_label/t_score_num_label")
+onready var t_score_text = get_node("t_score_num_label")
 var score_value
 var final_value
 var tween_text
