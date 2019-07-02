@@ -34,12 +34,12 @@ func update_help_text():
 	"[cell][/cell][cell]b. 1 shots remaining, Bonus Score: 1500[/cell]"+\
 	"[cell][/cell][cell]c. 0 shots remaining, Bonus Score: 1000\n[/cell]"+\
 	"[cell][/cell][cell][u]Score Calculation:[/u][/cell]"+\
-	"[cell][/cell][cell]\t[color=#bdc2fc]Score = (Fp x Fs) + Bonus[/color][/cell]"+\
-	"[cell][/cell][cell]Fp: number of pieces interlocked in final shot.[/cell]"+\
-	"[cell][/cell][cell]Fs: number of activated square in final shot.\n[/cell]"+\
+	"[cell][/cell][cell][center][color=yellow]Score = (Fp x Fs) + Bonus[/color][/center][/cell]"+\
+	"[cell][/cell][cell][color=yellow]Fp[/color]: number of pieces interlocked in final shot.[/cell]"+\
+	"[cell][/cell][cell][color=yellow]Fs[/color]: number of activated square in final shot.\n[/cell]"+\
 	"[cell]2.[/cell][cell]If rounds end while not all square activated, score calculation would be:[/cell]"+\
-	"[cell][/cell][cell]\t[color=#bdc2fc]Score = (As x 10)[/color][/cell]"+\
-	"[cell][/cell][cell]As: number of activated square in the current round[/cell]"+\
+	"[cell][/cell][cell][center][color=yellow]Score = (As x 10)[/color][/center][/cell]"+\
+	"[cell][/cell][cell][color=yellow]As[/color]: number of activated square in the current round[/cell]"+\
 	"[/table]"
 	help_detail.append_bbcode(help_text)
 	pass

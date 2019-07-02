@@ -16,10 +16,10 @@ var total_shots_score : int
 var tile_green : int
 var tile_green_shots : int
 var disk_spin_count : int
-var bonus_complete = [1000,1500,2000]
+var bonus_complete = [1000,1500,2000,2000]
 var is_complete = false
-const rounds_limit = 4
-const shots_limit = 1
+const rounds_limit = 10
+const shots_limit = 4
 var num_shots
 var current_rounds
 #var score_data
@@ -160,8 +160,9 @@ func on_chain_end():
 		emit_signal("round_end")
 	else:
 		emit_signal("score_update",current_rounds,rounds_score[current_rounds])
-	tile_green_shots = 0
-	disk_spin_count = 0
+	if current_rounds<(rounds_limit-1):
+		tile_green_shots = 0
+		disk_spin_count = 0
 	pass
 	
 func on_shots_used():

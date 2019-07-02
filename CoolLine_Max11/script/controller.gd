@@ -126,7 +126,7 @@ func _gui_input(event):
 			var tile = tile_arr[i]
 			if (tile!=tile_arr[empt_tile_index]):
 				var tile_mousePos = tile.get_local_mouse_position()
-				var disk_texture = tile.get_child(1).get_texture()
+				var disk_texture = tile.get_child(2).get_texture()
 				var isClicked = tile_mousePos.x >=0 && tile_mousePos.x <= disk_texture.get_width() && \
 				tile_mousePos.y >= 0 && tile_mousePos.y <= disk_texture.get_height()
 				if isClicked:
@@ -134,7 +134,7 @@ func _gui_input(event):
 					clicked_tile = tile
 					original_disk_position = tile.disk.global_position
 					can_grab = event.pressed
-					grabbed_offset=clicked_tile.get_child(1).get_global_position()-get_global_mouse_position()
+					grabbed_offset=clicked_tile.get_child(2).get_global_position()-get_global_mouse_position()
 				
 	if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT and event.pressed:
 		for i in range(num_slot):

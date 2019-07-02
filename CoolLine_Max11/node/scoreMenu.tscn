@@ -2,12 +2,14 @@
 
 [ext_resource path="res://CoolLine_Max11/script/scoreMenu.gd" type="Script" id=1]
 [ext_resource path="res://CoolLine_Max11/img/gui_score_menu.jpg" type="Texture" id=2]
-[ext_resource path="res://CoolLine_Max11/font/CarterOne.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://CoolLine_Max11/font/comicbd.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="DynamicFont" id=1]
-size = 20
-outline_color = Color( 0.494118, 0.313726, 0.0313726, 1 )
+size = 19
+outline_size = 1
+outline_color = Color( 0.443137, 0.286275, 0.0156863, 1 )
 use_mipmaps = true
+use_filter = true
 extra_spacing_top = 2
 extra_spacing_bottom = 5
 font_data = ExtResource( 3 )

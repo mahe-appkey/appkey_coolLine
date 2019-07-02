@@ -124,7 +124,7 @@ grow_vertical = 2
 [node name="grid_score_round" type="GridContainer" parent="Panel_score_round"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -241.0
+margin_left = -234.0
 margin_top = 5.0
 margin_right = 240.0
 margin_bottom = 177.0
@@ -135,9 +135,6 @@ custom_constants/vseparation = 1
 custom_constants/hseparation = 1
 columns = 5
 script = ExtResource( 5 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="shots_container" parent="Panel_score_round" instance=ExtResource( 6 )]
 anchor_left = 0.0
@@ -161,14 +158,11 @@ script = ExtResource( 9 )
 z_index = 4
 
 [node name="round_black_panel" type="Panel" parent="round_label_container"]
-modulate = Color( 1, 1, 1, 0.150588 )
-margin_top = 1.0
+modulate = Color( 1, 1, 1, 0 )
+margin_top = -6.0
 margin_right = 510.0
-margin_bottom = 892.0
+margin_bottom = 903.0
 mouse_filter = 1
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="TextureRect" type="TextureRect" parent="round_label_container"]
 modulate = Color( 1, 1, 1, 0 )
@@ -203,4 +197,5 @@ valign = 1
 anims/round_start = SubResource( 2 )
 
 [node name="popup_control" parent="." instance=ExtResource( 12 )]
+visible = false
 z_index = 5

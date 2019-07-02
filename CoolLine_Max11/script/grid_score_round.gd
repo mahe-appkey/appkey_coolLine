@@ -1,6 +1,6 @@
 extends GridContainer
 
-var num_row = 2.0
+#var num_row = 2.0
 var num_column = 5
 var num_slot
 var score_l_arr = Array()

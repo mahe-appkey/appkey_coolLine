@@ -8,6 +8,8 @@ var sprite_img
 var sprite_img_clear
 var isGreened = false
 onready var chain_label = preload("res://CoolLine_Max11/node/node_chain_label.tscn").instance()
+onready var p_star_node = preload("res://CoolLine_Max11/node/p_starburst.tscn").instance()
+var p_star
 
 var widnhei
 
@@ -26,6 +28,7 @@ func clear_tile():
 		self.set_texture(sprite_img_clear)
 		self.isGreened = true
 		get_parent().tile_is_green()
+		p_star.set_emitting(true)
 	
 func reset_tile():
 	self.set_texture(sprite_img)
@@ -49,6 +52,10 @@ func _ready():
 	chain_label.z_index = 2
 	chain_label.set_position(Vector2(widnhei-(widnhei/3),0))
 	add_child(chain_label)
+	p_star = p_star_node.get_node("Particles2D")
+	p_star.set_emitting(false)
+	p_star_node.set_position(Vector2(widnhei/2,widnhei/2))
+	add_child(p_star_node)
 	pass # Replace with function body.
 	
 func set_chain_label(chain_count):
