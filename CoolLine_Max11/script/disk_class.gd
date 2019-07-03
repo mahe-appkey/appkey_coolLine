@@ -57,6 +57,18 @@ func _ready():
 	cur_update_rot=cur_rot
 	update_value_rot()
 	
+func change_trigger_point(dir):
+	if dir == "up":
+		pass
+	elif dir == "right":
+		pass
+	elif dir == "down":
+		pass
+	elif dir == "left":
+		pass
+	
+	pass
+	
 func update_value_rot():
 	var delta_rot = abs(cur_update_rot - bef_rot)
 	var r_num = 0
@@ -105,22 +117,11 @@ func rotate_disk(rot_time):
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 		tween_rot.start()
 	cur_rot=angle_rot
+	print("angle: ",(cur_rot/-90)-1)
 	yield(tween_rot,"tween_completed")
 	get_parent().clear_tile()
 	pass
 	
-var rot_start
-var rotation_time
-func set_rotation_time(rt):
-	rotation_time = rt
-	
-func start_rot():
-	rot_start=true
-	
-func _physics_process(delta):
-	if (rot_start == true):
-		calculate_rotation(rotation_time)
-		rotate_disk(rotation_time)
-		rot_start=false
-		
-	
+func start_rot(rotation_time):
+	calculate_rotation(rotation_time)
+	rotate_disk(rotation_time)

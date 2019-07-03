@@ -144,7 +144,7 @@ func on_chain_end():
 		rounds_score[current_rounds] = tile_green*10
 	else:
 		is_complete = true
-		rounds_score[current_rounds]+=disk_spin_count*tile_green_shots+bonus_complete[num_shots]
+		rounds_score[current_rounds]+=(disk_spin_count*disk_spin_count)*tile_green_shots+bonus_complete[num_shots]
 	if (num_shots<1) or is_complete:
 		no_input_me(false)
 		if current_rounds<(rounds_limit-1):

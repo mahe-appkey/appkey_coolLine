@@ -57,6 +57,7 @@ var border_no_up = Array()
 var border_no_down = Array()
 var border_no_left = Array()
 var border_no_right = Array()
+var ran_slot_ar = Array()
 const block_time = 2
 var block_limit
 var prev_chain_disk_value
@@ -83,12 +84,25 @@ func _init():
 func _ready():
 	self.set_size(Vector2(get_parent().rect_size.x-pos_x_margin,5*g_ratio))
 	self.rect_position.x = pos_x_margin/2
-	ran_tile = random_arr(num_slot)
+	define_border()
+	rand_slot_arr()
+	ran_tile = ran_slot_ar[random_arr(ran_slot_ar.size())]
 	empt_tile_index = ran_tile
-	generate_disk()
+	generate_disk(ran_tile)
 	generate_tile()
 	add_disk_to_tile(ran_tile)
-	define_border()
+	pass
+	
+func rand_slot_arr():
+	for i in range(num_slot):
+		if i in border_no_up or\
+		i in border_no_down or\
+		i in border_no_left or\
+		i in border_no_right:
+			pass
+		else:
+			print(i)
+			ran_slot_ar.append(i)
 	pass
 		
 func add_disk_to_tile(ran_num):
@@ -97,13 +111,26 @@ func add_disk_to_tile(ran_num):
 			tile_arr[i].setDisk(disk_arr[i])
 	pass
 	
-func generate_disk():
-	for i in range(num_slot):
+func generate_disk(ran_num):
+	var i = 0
+	var count_disk = [0,0,0]
+	var mod_size
+	if ((num_slot-1)%diskDictionary.size())==0:
+		mod_size = (num_slot-1)/diskDictionary.size()
+	else:
+		mod_size = (num_slot)/diskDictionary.size()
+	while i < num_slot:
 		ran_disk=random_arr(diskDictionary.size())
-		var diskName = diskDictionary[ran_disk].diskName
-		var diskType = diskDictionary[ran_disk].diskType
-		var diskIcon = diskDictionary[ran_disk].diskIcon
-		disk_arr.append(disk_class.new(diskName,diskIcon,null,diskType))
+		if count_disk[ran_disk] < mod_size:
+			if i != ran_num:
+				var diskName = diskDictionary[ran_disk].diskName
+				var diskType = diskDictionary[ran_disk].diskType
+				var diskIcon = diskDictionary[ran_disk].diskIcon
+				disk_arr.append(disk_class.new(diskName,diskIcon,null,diskType))
+				count_disk[ran_disk]+=1
+			else:
+				disk_arr.append(null)
+			i+=1
 		
 func generate_tile():
 #	init tile
@@ -316,8 +343,7 @@ func set_prev_chain_disk_value():
 
 func chain_me():
 	if (prev_chain_index != cur_chain_index):
-		cur_chain_disk.set_rotation_time(prev_chain_disk_value)
-		cur_chain_disk.start_rot()
+		cur_chain_disk.start_rot(prev_chain_disk_value)
 		cur_chain_tile.set_chain_label(cur_chain_count)
 		emit_signal("disk_spin")
 		cur_chain_count-=1

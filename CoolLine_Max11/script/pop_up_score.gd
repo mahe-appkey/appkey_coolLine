@@ -17,13 +17,13 @@ onready var round_score=get_node("round_end/round_score")
 onready var round_score2=get_node("round_end/round_score2")
 onready var bonus_score = get_node("round_end/bonus_score")
 onready var num_disk = get_node("round_end/num_disk")
+onready var num_kuadrat = get_node("round_end/num_disk/num_disk2")
 onready var pop_anim = get_node("pop_anim")
 onready var light_anim = get_node("light_anim")
 onready var light_01 = get_node("light_ray")
 onready var light_02 = get_node("light_ray2")
-
-
 onready var g_manager= get_node("../")
+var tween_panel
 
 func _init():
 	pass
@@ -41,8 +41,24 @@ func _ready():
 	ok_button.connect("button_up",self,"on_ok_pressed")
 	exit_button.connect("button_up",self,"on_exit_pressed")
 	play_button.connect("button_up",self,"on_play_pressed")
+	tween_panel = Tween.new()
+	add_child(tween_panel)
 	pass # Replace with function body.
 
+func tween_pop_in():
+	tween_panel.interpolate_property(round_end,'modulate',Color(1,1,1,0.5),Color(1,1,1,1),0.4,Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	tween_panel.start()
+	tween_panel.interpolate_property(round_end,'rect_scale',Vector2(0.1,0.1),Vector2(1,1),1,Tween.TRANS_BACK, Tween.EASE_OUT)
+	tween_panel.start()
+	pass
+	
+func tween_pop_out():
+	tween_panel.interpolate_property(round_end,'rect_scale',Vector2(1,1),Vector2(0.1,0.1),0.5,Tween.TRANS_BACK, Tween.EASE_IN)
+	tween_panel.start()
+	tween_panel.interpolate_property(round_end,'modulate',Color(1,1,1,1),Color(1,1,1,0.5),0.5,Tween.TRANS_LINEAR, Tween.EASE_IN)
+	tween_panel.start()
+	pass
+	
 func on_round_end():
 	cur_round=g_manager.current_rounds
 	if cur_round<(round_all):
@@ -69,11 +85,12 @@ func update_score_detail():
 	if g_manager.is_complete:
 		round_end.set_texture(round_clear_tex)
 		num_disk.show()
+		num_kuadrat.show()
 		bonus_score.show()
 		bonus_score.text = "+"+str(g_manager.bonus_complete[g_manager.num_shots])
 		num_disk.text = str(g_manager.disk_spin_count)
 		num_tile_clear.text = str(g_manager.tile_green_shots)
-		round_score.text = str(g_manager.tile_green_shots*g_manager.disk_spin_count)
+		round_score.text = str(g_manager.tile_green_shots*g_manager.disk_spin_count*g_manager.disk_spin_count)
 		round_score2.text = "score: "+"+"+str(g_manager.rounds_score[cur_round])
 #		score_detail_text +=\
 #		"Spinning Drive:\n"+str(g_manager.disk_spin_count)+"\n\n"+\
@@ -88,6 +105,7 @@ func update_score_detail():
 	else:
 		round_end.set_texture(round_end_tex)
 		num_disk.hide()
+		num_kuadrat.hide()
 		bonus_score.hide()
 		num_tile_clear.text = str(g_manager.tile_green)
 		round_score.text = str(g_manager.tile_green*10)
@@ -107,8 +125,8 @@ func update_score_detail():
 
 func toogle_popup():
 	pop_anim.play("pop_panel_anim")
-	yield(pop_anim,"animation_finished")
-	pop_anim.play("pop_score_anim")
+#	pop_anim.play("pop_score_anim")
+	tween_pop_in()
 	if g_manager.is_complete:
 		light_01.show()
 		light_02.show()
@@ -123,12 +141,14 @@ func toogle_popup():
 	
 func on_ok_pressed():
 #	print("ok press")
+#	pop_anim.play_backwards("pop_score_anim")
+#	yield(pop_anim,"animation_finished")
+	tween_pop_out()
+#	yield(tween_panel,"tween_completed")
+	pop_anim.play_backwards("pop_panel_anim")
 	light_01.hide()
 	light_02.hide()
 	light_anim.stop()
-	pop_anim.play_backwards("pop_score_anim")
-	yield(pop_anim,"animation_finished")
-	pop_anim.play_backwards("pop_panel_anim")
 	yield(pop_anim,"animation_finished")
 	self.hide()
 	emit_signal("ok_press")

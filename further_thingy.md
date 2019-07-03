@@ -82,6 +82,7 @@ either change the animation, or make node instead generate it directly from scri
 - ~~tween must be inside process function to be able processed with time frame~~
 
 - ~~disk value not updated correctly, it use the before rotation value~~
+- Xiaomi Redmi 3S problem cause of Adreno 505 (known issue: Adreno (3xx and 5xx series) bad implementation of OpenGL ES 3.0), mali chipsets also have problem (un-verified)
 
 #### direction chaining edgecases:
 num_column = 4
@@ -156,3 +157,14 @@ resolution (16:9) = 504 x 896
 10. https://github.com/BeardedManStudios/ForgeNetworkingRemastered
 11. https://github.com/corpusc/Paramancer
 12. 
+
+#### Pertanyaan:
+~~a. untuk score yg complete:
+    contoh:
+    - complete pada shots ke 3, bonus: 1500
+    - 11 kotak ijo sebelumnya
+    - 5 kotak menjadi ijo pada shots ke 3
+    - 7 piece yg chain interlocked
+    - apakah kalkulasinya (5 x 7) + 1500 atau (5 x 5 x 7) + 1500 atau (11 x 5 x 7) + 1500 ?~~
+
+b. 
