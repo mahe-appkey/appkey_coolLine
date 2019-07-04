@@ -1,5 +1,6 @@
 extends Node
 
+var main_game = preload("res://CoolLine_Max11/node/main.tscn")
 onready var start_button = get_node("mainMenu_panel/startButton")
 onready var score_button = get_node("mainMenu_panel/scoreButton")
 onready var option_button = get_node("mainMenu_panel/optionButton")

@@ -58,15 +58,48 @@ func _ready():
 	update_value_rot()
 	
 func change_trigger_point(dir):
-	if dir == "up":
+	is_trigger = true
+	var change_dir = false
+	var calc = 0
+	var calc2 = 0
+	if abs(cur_rot) >= 360:
+		cur_rot +=360
+#	print("disk_type: ",diskType)
+#	print("cur_rot bef: ",cur_rot)
+#	print("trigger_dir bef: ",trigger_dir)
+	if dir == "up" and trigger_dir != "up":
+		calc+=0
+		change_dir = true
 		pass
-	elif dir == "right":
+	elif dir == "left" and trigger_dir != "left":
+		calc+=1
+		change_dir = true
 		pass
-	elif dir == "down":
+	elif dir == "down" and trigger_dir != "down":
+		calc+=2
+		change_dir = true
 		pass
-	elif dir == "left":
+	elif dir == "right" and trigger_dir != "right":
+		calc+=3
+		change_dir = true
 		pass
-	
+	if change_dir:
+		if self.diskType == "trigger_01":
+			calc2=cur_rot
+		elif self.diskType == "trigger_02":
+			calc2 = (cur_rot-270)
+		elif self.diskType == "trigger_03":
+			calc2 = (cur_rot-180)
+		if abs(calc2) >= 360:
+			calc2+=360
+		calc=calc+abs(4-(calc2/-90))
+		if calc >=4:
+			calc = calc - 4
+#	print("rot_time: ",abs(calc))
+	calculate_rotation(abs(calc))
+	rotate_disk(0.1)
+#	print("trigger_dir after: ",trigger_dir)
+#	print("cur_rot after: ",cur_rot)
 	pass
 	
 func update_value_rot():
@@ -110,16 +143,17 @@ func calculate_rotation(rot_time):
 	angle_rot-= rot_amount*rot_time
 	cur_update_rot=angle_rot
 	update_value_rot()
-	
+
+var is_trigger = false
 func rotate_disk(rot_time):
 	if rot_time > 0:
 		tween_rot.interpolate_property(self, "rotation", deg2rad(cur_rot),deg2rad(angle_rot), rot_second*rot_time, \
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 		tween_rot.start()
 	cur_rot=angle_rot
-	print("angle: ",(cur_rot/-90)-1)
 	yield(tween_rot,"tween_completed")
-	get_parent().clear_tile()
+	if !is_trigger:
+		get_parent().clear_tile()
 	pass
 	
 func start_rot(rotation_time):

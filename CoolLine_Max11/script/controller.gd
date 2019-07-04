@@ -4,7 +4,9 @@ extends GridContainer
 signal tile_greened
 signal chain_end
 signal disk_spin
+signal trigger_changed2
 # variable
+var able_change_trigger = true
 const g_ratio = 1.618
 var tile_arr = Array()
 var disk_arr = Array()
@@ -22,6 +24,7 @@ var empt_tile_index
 var temp_tile_index
 var num_column = 4
 var num_slot = (num_column*num_column)
+onready var trigger_dir_btn = preload("res://CoolLine_Max11/node/trigger_direction.tscn").instance()
 const tile_class = preload("res://CoolLine_Max11/script/tile_class.gd")
 const disk_class = preload("res://CoolLine_Max11/script/disk_class.gd")
 const disk_texture = [
@@ -82,6 +85,10 @@ func _init():
 	
 	
 func _ready():
+	self.connect("trigger_changed2",self,"on_trigger_press")
+	trigger_dir_btn.connect("trigger_pressed",self,"on_trigger_press")
+	trigger_dir_btn.hide()
+	trigger_dir_btn.z_index = 99
 	self.set_size(Vector2(get_parent().rect_size.x-pos_x_margin,5*g_ratio))
 	self.rect_position.x = pos_x_margin/2
 	define_border()
@@ -91,8 +98,9 @@ func _ready():
 	generate_disk(ran_tile)
 	generate_tile()
 	add_disk_to_tile(ran_tile)
+	add_child(trigger_dir_btn)
 	pass
-	
+
 func rand_slot_arr():
 	for i in range(num_slot):
 		if i in border_no_up or\
@@ -101,7 +109,7 @@ func rand_slot_arr():
 		i in border_no_right:
 			pass
 		else:
-			print(i)
+#			print(i)
 			ran_slot_ar.append(i)
 	pass
 		
@@ -190,7 +198,6 @@ func _gui_input(event):
 #		hold_disk = null
 #		clicked_tile = null
 #	pass
-	
 func _process(delta):
 	if Input.is_mouse_button_pressed(BUTTON_LEFT) and can_grab and able_to_drag:
 		if clicked_tile != null:
@@ -205,20 +212,40 @@ func _process(delta):
 		if inEmptyTile:
 			clicked_tile.removeDisk()
 			tile_arr[empt_tile_index].setDisk(hold_disk)
-			empt_tile_index = temp_tile_index
-			temp_tile_index=0
-			init_chaining(hold_disk.get_parent())
+			trigger_tile_index = empt_tile_index
+#			print("empty_tile_index bef: ",empt_tile_index)
+			if able_change_trigger:
+				trigger_dir_btn.global_position = tile_arr[empt_tile_index].get_global_position()+\
+				(Vector2(tile_arr[empt_tile_index].widnhei/2,tile_arr[empt_tile_index].widnhei/2))
+				empt_tile_index = temp_tile_index
+				temp_tile_index=0
+				trigger_dir_btn.show()
+			else:
+				empt_tile_index = temp_tile_index
+				temp_tile_index=0
+				emit_signal("trigger_changed2","")
+			
+#			print("empty_tile_index after: ",empt_tile_index)
+#			print("test: ",hold_disk.trigger_dir)
+			able_to_drag = false
 		else: 
 			hold_disk.global_position = original_disk_position
 		hold_disk.z_index = 1
 		hold_disk = null
 		clicked_tile = null
 	pass
-		
+
+var trigger_tile_index
+func on_trigger_press(dir):
+	trigger_dir_btn.hide()
+	var trigger_tile = tile_arr[trigger_tile_index]
+	trigger_tile.get_child(2).change_trigger_point(dir)
+	trigger_tile_index = empt_tile_index
+	init_chaining(trigger_tile)
+
 func init_chaining(start_tile):
 #	initialize needed information for chaining
 	var start_index
-	able_to_drag = false
 	dir_changed = true
 	define_empty_border()
 	block_limit = block_time
@@ -266,6 +293,8 @@ func define_empty_border():
 		empty_tile_border[1]=-1
 	if (border_no_right.has(empt_tile_index)):
 		empty_tile_border[3]=-1
+#	for i in empty_tile_border:
+#		print(i)
 	pass
 	
 func is_ok_next_dir(dir,indx,disk):
@@ -343,6 +372,7 @@ func set_prev_chain_disk_value():
 
 func chain_me():
 	if (prev_chain_index != cur_chain_index):
+		cur_chain_disk.is_trigger = false
 		cur_chain_disk.start_rot(prev_chain_disk_value)
 		cur_chain_tile.set_chain_label(cur_chain_count)
 		emit_signal("disk_spin")

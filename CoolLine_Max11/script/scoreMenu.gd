@@ -40,9 +40,9 @@ func update_score_display():
 		for i in range(score_arr.size()):
 			score_text+=\
 			"[cell][right]"+str(i+1)+".[/right][/cell]"+\
-			"[cell][right]  "+str(score_arr[i][0])+"[/right][/cell]"+\
-			"[cell][right]  "+str(score_arr[i][1])+"[/right][/cell]"+\
-			"[cell][right]  "+str(score_arr[i][2])+"[/right][/cell]"
+			"[cell][right] "+str(score_arr[i][0])+"[/right][/cell]"+\
+			"[cell][right] "+str(score_arr[i][1])+"[/right][/cell]"+\
+			"[cell][right] "+str(score_arr[i][2])+"[/right][/cell]"
 		score_text+=\
 		"[/table]"
 	score_detail.append_bbcode(score_text)
