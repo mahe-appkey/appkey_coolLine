@@ -18,10 +18,10 @@ __meta__ = {
 }
 
 [node name="startButton" type="TextureButton" parent="mainMenu_panel"]
-margin_left = 151.545
-margin_top = 608.534
-margin_right = 361.545
-margin_bottom = 672.534
+margin_left = 153.545
+margin_top = 572.534
+margin_right = 363.545
+margin_bottom = 636.534
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
 texture_pressed = ExtResource( 4 )
@@ -30,23 +30,32 @@ __meta__ = {
 }
 
 [node name="scoreButton" type="TextureButton" parent="mainMenu_panel"]
-margin_left = 6.0
-margin_top = 811.0
-margin_right = 84.0
-margin_bottom = 891.0
+margin_left = 219.238
+margin_top = 674.011
+margin_right = 297.238
+margin_bottom = 754.011
 shortcut_in_tooltip = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="optionButton" type="TextureButton" parent="mainMenu_panel"]
-margin_left = 9.0
-margin_top = 4.0
-margin_right = 66.0
-margin_bottom = 64.0
+margin_left = 106.0
+margin_top = 671.0
+margin_right = 184.0
+margin_bottom = 757.0
 shortcut_in_tooltip = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="help_texButton" type="TextureButton" parent="mainMenu_panel"]
 modulate = Color( 0.988235, 0.984314, 0.984314, 1 )
-margin_left = 437.0
-margin_top = 5.0
-margin_right = 496.0
-margin_bottom = 66.0
+margin_left = 340.0
+margin_top = 674.0
+margin_right = 416.0
+margin_bottom = 754.0
 shortcut_in_tooltip = false
+__meta__ = {
+"_edit_lock_": true
+}
