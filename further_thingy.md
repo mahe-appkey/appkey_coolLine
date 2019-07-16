@@ -167,4 +167,90 @@ resolution (16:9) = 504 x 896
     - 7 piece yg chain interlocked
     - apakah kalkulasinya (5 x 7) + 1500 atau (5 x 5 x 7) + 1500 atau (11 x 5 x 7) + 1500 ?~~
 
-b. 
+
+### Pdf Search and Hghlighting Module
+- What version of MacOS ??? Mojave (download Mojave newest (10.14.xx) Image)
+  - Installed are version: 10.13.4 High Sierra 
+- What version of XCode ??? 10.2
+  - download manual (6-7GBs) XCode Version: https://xcodereleases.com/
+  - https://developer.apple.com/download/more/
+- Need to download Swift too.. the newest..
+- What kind of framework or Library used for parsing the PDF file ??? PDFKit
+
+[ ] search module
+[ ] outline navigation module
+
+#### search pdf text in PDFKit:
+- https://stackoverflow.com/questions/50609526/how-to-search-a-pdf-using-pdfkit-in-swift
+- https://stackoverflow.com/questions/48925001/pdfview-doesnt-highlight-search-results
+- https://medium.com/@jdoth/pdfkit-pdfview-8f2be66a4c8f
+- https://stackoverflow.com/questions/51709014/searching-in-pdfs-increases-apps-memory-usage-too-much
+- https://github.com/rajubd49/PDFKit_Sample
+- https://github.com/kishikawakatsumi/BookReader
+- https://github.com/tzshlyt/iOS11-PDFKit-Example
+- https://pdfkit.org/docs/text.html
+- https://stackoverflow.com/questions/50575299/searching-pdf-using-pdfkit-in-swift
+- https://equaleyes.com/blog/2018/02/02/introducing-pdfkit-the-right-way-to-treat-your-pdfs-on-ios/
+- https://medium.com/@ji3g4kami/make-a-ebook-reader-with-pdfkit-in-swift-6010f82bd51
+- https://frameworker.wordpress.com/2018/07/27/pdfkit-the-lost-samples/
+- https://medium.com/@artempoluektov/ios-pdfkit-ink-annotations-tutorial-4ba19b474dce
+- 
+
+#### resizeableView:
+- https://github.com/spoletto/SPUserResizableView
+- https://github.com/ppoh71/resizeRectangleOnTouchDrag/blob/master/ResizeRectangle/ViewController.swift
+- https://github.com/RajatJain4061/RKUserResizableView
+- 
+
+### Bahasa Indonesia bahan kuis:
+- Kata
+    > Subjek:
+    > - pelaku
+    > - pengalam
+
+    > Predikat:
+    > - tindakan subjek
+    > - kondisi / situasi / perasaan / keadaan / sifat subjek
+    > - peran subjek
+
+    > Objek:
+    > - Target tindakan / sasaran
+    > - pendamping
+
+    > Keterangan:
+    > - waktu
+    > - tempat
+    > - cara
+    > - frekuensi
+
+- Frasa:
+    > kelompok kata / non-predikatif
+    > - _gabungan dari dua kata atau lebih namun tidak dapat membentuk kalimat sempurna karena tidak memiliki predikat._
+
+- Klausa:
+    > kelompok kata yang merupakan bagian kalimat yang dasarnya memiliki **subjek dan predikat**.
+
+- Kalimat
+    > urutan kata yang logis dan berakhiran dengan titik.
+
+- Kalimat Efektif
+    > kalimat yang mengikuti kaidah-kaidah kebahasaan yang baik dan benar.
+
+- Paragraf
+    urutan kalimat yang terdiri dari satu pikiran pendek dan penjelas.
+    > ciri paragraf yang baik:
+    > 1. satu pikiran utama.
+    > 2. ada kalimat penjelas.
+    > 3. antar kalimat saling berkaitan.
+
+- Tugas dua paragraf:
+Tema: Perkembangan Informasi Teknologi
+- apa yg dimaksud dengan informasi teknologi?
+    > Teknologi informasi merupakan suatu teknologi yang digunakan untuk mengolah dan memanipulasi data dengan berbagai cara agar menghasilkan informasi yang berkualitas.
+
+- mengapa informasi teknologi itu penting?
+    > Seiring dengan perkembangan teknologi dan globalisasi, jumlah dan ukuran informasi yang dihasilkan pun meningkat. Oleh karena itu, dibutuhkan cara agar dapat mengolah dan memanipulasi informasi-informasi tersebut sehingga dapat digunakan secara relevan, strategis, akurat dan tepat waktu. Teknologi informasi pun berkembang seiring dengan perkembangan teknologi untuk menjawab tantangan dalam mengolah dan memanipulasi informasi.
+    
+    >Perkembangan teknologi informasi ini didorong oleh berbagai kepentingan, seperti kepentingan pribadi, bisnis, dan pemerintahan dalam menggunakan hasil olahan dan manipulasi dari informasi tersebut. Hal ini dikarenakan oleh kemampuan teknologi informasi dalam menolong memecahkan suatu masalah, serta meningkatkan efektivitas dan efisiensi dalam menyelesaikan pekerjaan.
+
+- bagaimana keadaan informasi teknologi sekarang?
