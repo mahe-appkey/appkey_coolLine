@@ -177,9 +177,9 @@ resolution (16:9) = 504 x 896
 - Need to download Swift too.. the newest..
 - What kind of framework or Library used for parsing the PDF file ??? PDFKit
 
-[x] search module
-[x] outline navigation module
-[x] bookmark module
+- [x] search module
+- [x] outline navigation module
+- [x] bookmark module
 
 #### search pdf text in PDFKit:
 - https://stackoverflow.com/questions/50609526/how-to-search-a-pdf-using-pdfkit-in-swift
@@ -204,22 +204,22 @@ resolution (16:9) = 504 x 896
 - 
 
 #### PDF Annotation next thingy:
-[x] Add Line annotation
-[x] move and resize note annotation
-[x] hapus square and circle
-[x] update note to be drawn top most
-[x] tombol hapus note
-[x] undo and redo annotation
+- [x] Add Line annotation
+- [x] move and resize note annotation
+- [x] hapus square and circle
+- [x] update note to be drawn top most
+- [x] tombol hapus note
+- [x] undo and redo annotation
     
 ##### problem:
 - ~~border and note kinda seperated, have to make them into one, then
     each should have reference to other, so if either got selected,
     both of it would responded.~~
 
-- ~~annotation type for widget kinda broken, if we draw after making note, note type will be detected as ink, not widget. (only for current page)
-    - possibly because ink using page bound, so all being covered by it
-    - for idea, we could try to resize the bound for ink annotation when they finished drawing.
-    - for idea, we could try to get all non ink annotation, put in array when ink began drawing, then after drawing put all the annotation back~~
+- ~~annotation type for widget kinda broken, if we draw after making note, note type will be detected as ink, not widget. (only for current page)~~
+    - ~~possibly because ink using page bound, so all being covered by it~~
+    - ~~for idea, we could try to resize the bound for ink annotation when they finished drawing.~~
+    - ~~for idea, we could try to get all non ink annotation, put in array when ink began drawing, then after drawing put all the annotation back~~
 
 - ~~change square and circle to UIBezierPath~~
 
